@@ -11,6 +11,9 @@ dependencies:
   '@prisma/extension-accelerate':
     specifier: ^1.1.0
     version: 1.1.0(@prisma/client@5.16.1)
+  blogosphere-common:
+    specifier: ^1.0.0
+    version: 1.0.0
   hono:
     specifier: ^4.4.10
     version: 4.4.10
@@ -429,6 +432,12 @@ packages:
   /blake3-wasm@2.1.5:
     resolution: {integrity: sha512-F1+K8EbfOZE49dtoPtmxUQrpXaBIl3ICvasLh+nJta0xkz+9kF/7uet9fLnwKqhDrmj6g+6K3Tw9yQPUg2ka5g==}
     dev: true
+
+  /blogosphere-common@1.0.0:
+    resolution: {integrity: sha512-YhAVI1n7x0CNEf3ieBAND5iMW4mvJG+gIzWqurTHxZpYjwQ/ctvb+Nnz/mWZBtGecguX6TS2ZbWI/vocK2Rv/Q==}
+    dependencies:
+      zod: 3.23.8
+    dev: false
 
   /braces@3.0.3:
     resolution: {integrity: sha512-yQbXgO/OSZVD2IsiLlro+7Hf6Q18EJrKSEsdoMzKePKXct3gvD8oLcOQdIzGupr5Fj+EDe8gO/lxc1BzfMpxvA==}
@@ -902,4 +911,3 @@ packages:
 
   /zod@3.23.8:
     resolution: {integrity: sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==}
-    dev: true
