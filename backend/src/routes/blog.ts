@@ -60,9 +60,18 @@ blogRouter.use("/*",async(c,next) => {
 
    try {
     const blogs = await prisma.blog.findMany({
-        take:100,
+        select: {
+            content :true,
+            title: true,
+            id: true,
+            author: {
+                select: {
+                    name:true
+                }
+            }
+        }
     });
-    console.log('Fetched blogs:', blogs);
+  
 
     if(blogs.length === 0){
         return c.json({
@@ -100,6 +109,16 @@ blogRouter.get('/:id', async(c) => {
         where:{
             id: id
         },
+        select: {
+            id:true,
+            title: true,
+            content: true,
+            author: {
+               select: {
+                name: true
+               }
+            }
+        }
     })
     if(!blog){
         return c.json({

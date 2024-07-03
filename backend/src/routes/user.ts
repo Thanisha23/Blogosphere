@@ -42,7 +42,12 @@ userRouter.post("/signup",async(c) => {
           name:body.name
         }
       });
-      const jwt = await sign({id: user.id},c.env.JWT_SECRET)
+      const jwt = await sign({id: user.id},c.env.JWT_SECRET);
+
+       // Add CORS headers
+  c.header('Access-Control-Allow-Origin', 'http://localhost:5173')
+  c.header('Access-Control-Allow-Methods', 'POST, OPTIONS')
+  c.header('Access-Control-Allow-Headers', 'Content-Type')
       return c.json({
         jwt:jwt,
         message:"Signup successful"
@@ -69,6 +74,8 @@ userRouter.post("/signin",async(c) => {
       message: "Inputs are not correct"
     })
   }
+
+
 try {
   const user = await prisma.user.findFirst({
 		where: {
@@ -81,6 +88,11 @@ try {
 		return c.json({ error: "user not found" });
 	}
   const jwt = await sign({ id: user.id }, c.env.JWT_SECRET);
+
+   // Add CORS headers
+   c.header('Access-Control-Allow-Origin', 'http://localhost:5173')
+   c.header('Access-Control-Allow-Methods', 'POST, OPTIONS')
+   c.header('Access-Control-Allow-Headers', 'Content-Type')
 	return c.json({
     jwt:jwt,
     message:"Successful Signin"
