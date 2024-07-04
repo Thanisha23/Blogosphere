@@ -1,5 +1,5 @@
 import axios from "axios"
-import { BACKEND_URL } from "../config"
+import { BACKEND_URL,CLOUDINARY_URL,CLOUD_NAME } from "../config"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import {Image} from "cloudinary-react";
@@ -18,7 +18,7 @@ const Publish = () => {
             formData.append("file",imageSelected);
             formData.append("upload_preset","blogs-images");
 
-            axios.post("https://api.cloudinary.com/v1_1/dpyhf7xa1/image/upload",formData).then((response) => {
+            axios.post(CLOUDINARY_URL,formData).then((response) => {
                 console.log(response);
                 setPublicId(response.data.public_id)
             });
@@ -61,7 +61,7 @@ const Publish = () => {
 
         <div className="pt-[3rem]">
                 {publicId && (
-                    <Image cloudName="dpyhf7xa1" publicId = {publicId} className="w-[35rem] h-[35rem]"  />
+                    <Image cloudName={CLOUD_NAME} publicId = {publicId} className="w-[35rem] h-[35rem]"  />
                 )}
         </div>
     </div>
