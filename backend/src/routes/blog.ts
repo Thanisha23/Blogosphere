@@ -161,6 +161,7 @@ blogRouter.post("/",async (c) => {
             data:{
                 title:body.title,
                 content:body.content,
+                imageId:body.imageId,
                 authorId:userId
             }
         })
