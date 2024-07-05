@@ -68,7 +68,8 @@ blogRouter.use("/*",async(c,next) => {
                 select: {
                     name:true
                 }
-            }
+            },
+            imageId : true
         }
     });
   
@@ -117,7 +118,8 @@ blogRouter.get('/:id', async(c) => {
                select: {
                 name: true
                }
-            }
+            },
+            imageId: true,
         }
     })
     if(!blog){
