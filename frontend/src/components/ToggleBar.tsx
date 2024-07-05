@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const ToggleBar = () => {
     const navigate = useNavigate();
@@ -9,7 +10,9 @@ const ToggleBar = () => {
         try {
             localStorage.removeItem("token");
             navigate("/");
-            alert("Logged out!");
+            toast.success("Logged out!",{
+                position: "top-center"
+            })
 
         } catch (error) {
             alert(`Error Logging out! ${error}`)

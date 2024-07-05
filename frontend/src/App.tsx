@@ -4,6 +4,7 @@ import Signin from "./pages/Signin"
 import Blog from "./pages/Blog"
 import Blogs from "./pages/Blogs"
 import Publish from "./pages/Publish"
+import { ToastContainer } from "react-toastify"
 
 
 
@@ -11,6 +12,7 @@ const App = () => {
   return (
    <>
     <BrowserRouter>
+    <ToastContainer />
       <Routes>
           <Route path="/signup" element={<Signup />} />
           <Route path="/signin" element={<Signin />} />

@@ -4,6 +4,8 @@ import LabelledInputType from "./LabelledInputType"
 import { Link,useNavigate } from "react-router-dom"
 import axios from "axios"
 import { BACKEND_URL } from "../config"
+import { toast } from "react-toastify"
+import "react-toastify/ReactToastify.css"
 type FormInputs = SignupInput | SigninInput;
 
 const Form = ({type} : {type: "signup" | "signin"}) => {
@@ -38,15 +40,24 @@ const Form = ({type} : {type: "signup" | "signin"}) => {
     
           if (jwt) {
             localStorage.setItem("token", jwt);
+            toast.success(response.data.message,{
+              position: 'top-center',
+            });
             console.log("Token stored:", jwt);
             navigate("/blogs");
           } else {
             console.error("Token not found in the response", response.data);
-            alert("Error: Token not found in the response");
+            // alert("Error: Token not found in the response");
+            toast.error(`Token not found in the response:${response.data.message}`,{
+              position:"top-center",
+            });
           }
         } catch (error) {
           console.error("Error during request:", error);
-          alert(`Error while ${type === "signup" ? "signing up" : "logging in"}: ${error}`);
+          // alert(`Error while ${type === "signup" ? "signing up" : "logging in"}: ${error}`);
+          toast.error(`Error while ${type === "signup" ? "signing up" : "logging in"}: ${error}`,{
+            position:"top-center",
+          });
         }
 }
 

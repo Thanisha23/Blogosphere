@@ -45,11 +45,12 @@ userRouter.post("/signup",async(c) => {
       })
     }
     
+    const hashedPassword = await bcrypt.hash(body.password,10)
     try {
       const user = await prisma.user.create({
         data:{
           email:body.email,
-          password:body.password,
+          password:hashedPassword,
           name:body.name
         }
       });
@@ -98,7 +99,10 @@ try {
 		c.status(403);
 		return c.json({ error: "user not found" });
 	}
-  const jwt = await sign({ id: user.id }, c.env.JWT_SECRET);
+
+  const isMatch = await bcrypt.compare(body.password,user.password)
+  if(isMatch){
+    const jwt = await sign({ id: user.id }, c.env.JWT_SECRET);
 
    // Add CORS headers
    c.header('Access-Control-Allow-Origin', 'http://localhost:5173')
@@ -108,6 +112,11 @@ try {
     jwt:jwt,
     message:"Successful Signin"
   })
+  }else{
+    return c.json({
+      message: "Incorrect password!"
+    })
+  }
 } catch (error) {
   c.status(500);
   return c.json({
