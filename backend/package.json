@@ -7,8 +7,8 @@
   "dependencies": {
     "@prisma/client": "5.16.1",
     "@prisma/extension-accelerate": "^1.1.0",
-    "@types/bcrypt": "^5.0.2",
-    "bcrypt": "^5.1.1",
+    "@types/bcryptjs": "^2.4.6",
+    "bcryptjs": "^2.4.3",
     "blogosphere-common": "^1.0.0",
     "hono": "^4.4.10",
     "prisma": "^5.16.1"

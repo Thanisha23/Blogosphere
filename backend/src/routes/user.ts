@@ -3,7 +3,7 @@ import { PrismaClient } from '@prisma/client/edge'
 import { withAccelerate } from '@prisma/extension-accelerate'
 import { sign } from 'hono/jwt'
 import { signupInput,signinInput } from 'blogosphere-common'
-import bcrypt from "bcrypt"
+import * as bcrypt from "bcryptjs"
 
 
 export const userRouter = new Hono<{
@@ -16,6 +16,17 @@ export const userRouter = new Hono<{
         userId:string
     }
 }>();
+
+  //function for hashing password
+  async function hashPassword(password:string): Promise<string> {
+    const salt = await bcrypt.genSalt(10);
+    return bcrypt.hash(password,salt);
+  }
+
+  //function for verifying password
+  async function verifyPassword(password: string,hashedPassword: string): Promise<boolean>{
+    return bcrypt.compare(password,hashedPassword)
+  }
 
 userRouter.post("/signup",async(c) => {
 
@@ -44,8 +55,9 @@ userRouter.post("/signup",async(c) => {
         message: "Inputs are not correct"
       })
     }
-    
-    const hashedPassword = await bcrypt.hash(body.password,10)
+  
+    const hashedPassword = await hashPassword(body.password);
+    // const hashedPassword = await bcrypt.hash(body.password,10)
     try {
       const user = await prisma.user.create({
         data:{
@@ -97,10 +109,10 @@ try {
 
 	if (!user) {
 		c.status(403);
-		return c.json({ error: "user not found" });
+		return c.json({ message: "User not found" });
 	}
 
-  const isMatch = await bcrypt.compare(body.password,user.password)
+  const isMatch = await verifyPassword(body.password,user.password)
   if(isMatch){
     const jwt = await sign({ id: user.id }, c.env.JWT_SECRET);
 
@@ -120,7 +132,7 @@ try {
 } catch (error) {
   c.status(500);
   return c.json({
-      error:"Internal server error"
+      message:"Internal server error"
   })
 }
 
