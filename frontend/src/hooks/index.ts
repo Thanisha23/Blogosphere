@@ -9,6 +9,7 @@ export interface Blog {
     "author" : {
     "name" : string
     }
+  
 }
 
 export const useBlogs = (postsPerPage = 3) => {

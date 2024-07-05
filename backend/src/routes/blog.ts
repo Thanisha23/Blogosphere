@@ -161,7 +161,7 @@ blogRouter.post("/",async (c) => {
             data:{
                 title:body.title,
                 content:body.content,
-                imageId:body.imageId,
+                imageId:body.imageId || null,
                 authorId:userId
             }
         })
@@ -195,6 +195,7 @@ blogRouter.put('/',async (c) => {
         data:{
             title:body.title,
             content:body.content,
+            imageId: body.imageId  || null,
         }
     })
     return c.json({
