@@ -14,12 +14,13 @@ export const signinInput = z.object({
 export const createBlog = z.object({
     title: z.string(),
     content: z.string(),
+    imageId: z.string().optional(),
 })
 
 export const updateBlog = z.object({
     title: z.string(),
     content: z.string(),
-    id:z.string()
+    id:z.string().optional().nullable(),
 })
 
 //type inference in zod
