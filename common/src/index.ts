@@ -20,7 +20,8 @@ export const createBlog = z.object({
 export const updateBlog = z.object({
     title: z.string(),
     content: z.string(),
-    id:z.string().optional().nullable(),
+    id: z.string(),
+    imageId: z.string().optional().nullable(),
 })
 
 //type inference in zod
