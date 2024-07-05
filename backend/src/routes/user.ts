@@ -3,7 +3,7 @@ import { PrismaClient } from '@prisma/client/edge'
 import { withAccelerate } from '@prisma/extension-accelerate'
 import { sign } from 'hono/jwt'
 import { signupInput,signinInput } from 'blogosphere-common'
-
+import bcrypt from "bcrypt"
 
 
 export const userRouter = new Hono<{
@@ -24,6 +24,16 @@ userRouter.post("/signup",async(c) => {
     }).$extends(withAccelerate());
     
     const body = await c.req.json();
+    //checking if the user exists in user
+    const existingUser = await prisma.user.findUnique({
+     where:{
+      email:body.email
+     }
+    })
+    if(existingUser) {
+      c.status(409);//conflict stauts
+      return c.json({message: "User with this email already exists"})
+    }
 
     const {success} = signupInput.safeParse(body);
 
@@ -34,6 +44,7 @@ userRouter.post("/signup",async(c) => {
         message: "Inputs are not correct"
       })
     }
+    
     try {
       const user = await prisma.user.create({
         data:{
@@ -54,7 +65,7 @@ userRouter.post("/signup",async(c) => {
       })
     } catch (error) {
       c.status(403);
-      return c.json({ error: "error while signing up" });
+      return c.json({ error: "Error while signing up" });
      
     }
 })

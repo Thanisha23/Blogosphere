@@ -46,7 +46,7 @@ const Form = ({type} : {type: "signup" | "signin"}) => {
           }
         } catch (error) {
           console.error("Error during request:", error);
-          alert(`Error while ${type === "signup" ? "signing up" : "logging in"}`);
+          alert(`Error while ${type === "signup" ? "signing up" : "logging in"}: ${error}`);
         }
 }
 

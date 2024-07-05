@@ -29,6 +29,7 @@ const Publish = () => {
         const response = await axios.post(CLOUDINARY_URL, formData);
         console.log(response);
         setPublicId(response.data.public_id);
+        console.log(`publicid : ${publicId}`);
       } catch (error) {
         console.error("Error uploading image", error);
       }
