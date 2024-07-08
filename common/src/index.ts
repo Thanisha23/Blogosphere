@@ -15,6 +15,7 @@ export const createBlog = z.object({
     title: z.string(),
     content: z.string(),
     imageId: z.string().optional(),
+    published: z.boolean().default(false),
 })
 
 export const updateBlog = z.object({
