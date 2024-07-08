@@ -155,11 +155,13 @@ blogRouter.post("/",async (c) => {
                 title:body.title,
                 content:body.content,
                 imageId:body.imageId || null,
-                authorId:userId
+                authorId:userId,
+                published:body.published || false
             }
         })
         return c.json({
-            id:blog.id
+            id:blog.id,
+            published:blog.published
         })
     } catch (error) {
         console.error("error creating blog",error);
@@ -167,6 +169,31 @@ blogRouter.post("/",async (c) => {
             error:"Failed to create blog post"
         }, 500)
        }
+})
+
+blogRouter.get("/drafts",async(c) => {
+    const prisma = c.get("prisma");
+    const userId = c.get("userId");
+
+    try {
+        const drafts = await prisma.blog.findMany({
+            where:{
+                authorId: userId,
+                published:false
+            },
+            select:{
+                id:true,
+                title:true,
+                content:true,
+                imageId:true,
+            }
+        });
+        return c.json({ drafts});
+    } catch (error) {
+        console.log("Error fetching drafts",error);
+        return c.json({ error: "Failed to fetch drafts"},500);
+    }
+    
 })
 
 blogRouter.get("/user/me", async (c) => {
@@ -224,10 +251,12 @@ blogRouter.put('/',async (c) => {
             title:body.title,
             content:body.content,
             imageId: body.imageId  || null,
+            published:body.published
         }
     })
     return c.json({
         id:blog.id,
+        published:blog.published,
         message:"Updated blog!"
     })
  } catch (error) {
