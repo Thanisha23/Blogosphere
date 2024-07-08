@@ -2,6 +2,8 @@ import FullBlog from "../components/FullBlog";
 import { useBlog } from "../hooks"
 import { useParams } from "react-router-dom"
 import type {Blog}  from "../hooks";
+import AppBar from "../components/AppBar";
+import Skeleton from "../components/Skeleton";
 
 
 type BlogHookResult = {
@@ -18,9 +20,12 @@ const Blog = () => {
     })
     
     if(loading) {
-        return <div>
-            loading...
-        </div>
+        return <>
+        <AppBar />
+        <div className="px-24 pt-[9rem]">
+   <Skeleton />
+   </div>
+        </>
     }
   return (
     <div>

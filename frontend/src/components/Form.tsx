@@ -57,6 +57,7 @@ const Form = ({type} : {type: "signup" | "signin"}) => {
           // alert(`Error while ${type === "signup" ? "signing up" : "logging in"}: ${error}`);
           toast.error(`Error while ${type === "signup" ? "signing up" : "logging in"}: ${error}`,{
             position:"top-center",
+            // className:"",
           });
         }
 }

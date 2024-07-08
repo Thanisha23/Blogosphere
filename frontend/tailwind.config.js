@@ -8,7 +8,10 @@ export default {
     extend: {
       fontFamily:{
         'roboto' : ["Roboto", 'sans-serif'],
-        'bonaNova': ["Bona Nova SC", "serif"]
+        'bonaNova': ["Bona Nova SC", "serif"],
+        "castoro": ["Castoro Titling", "serif"],
+        "antonSC": ["Anton SC", "sans-serif"],
+        "robotoCondensed": ["Roboto Condensed", "sans-serif"],
       }
     },
   },

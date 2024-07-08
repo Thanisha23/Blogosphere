@@ -22,24 +22,21 @@ blogRouter.use("/*",async(c,next) => {
     }).$extends(withAccelerate());
     c.set("prisma",prisma as any);
    
-    if (c.req.method === 'GET') {
+    if (c.req.method === 'GET' && !c.req.path.endsWith('/user/me')) {
         await next();
         return;
       }
-
-
     const authHeader = c.req.header("Authorization") || "";
     
     try {
         const user = await verify(authHeader,c.env.JWT_SECRET);
         if(user){
             // const userId = user.id;
+            console.log("Setting userId:", user.id);
             c.set("userId",user.id as any);
-    
             await next();
         }else{
             c.status(403);
-    
             return c.json({
                 message:"You are not logged in!"
             })
@@ -138,12 +135,6 @@ blogRouter.get('/:id', async(c) => {
     });
    }
   })
-
-
-
-
-
-
 blogRouter.post("/hi",(c) => {
    return c.text("middleware successful")
 })
@@ -177,6 +168,41 @@ blogRouter.post("/",async (c) => {
         }, 500)
        }
 })
+
+blogRouter.get("/user/me", async (c) => {
+    console.log("Entering /user/me route");
+    const prisma = c.get("prisma");
+    const userId = c.get("userId");
+console.log(`userId from context:${userId}`);
+    if (!userId) {
+        c.status(401);
+        return c.json({ message: "Unauthorized: User ID not found" });
+    }
+
+    try {
+        const currentUser = await prisma.user.findUnique({
+            where: {
+                id: userId
+            },
+            select: {
+                id: true,
+                email: true,
+                name: true
+            }
+        });
+
+        if (!currentUser) {
+            c.status(404);
+            return c.json({ message: "User not found" });
+        }
+
+        return c.json({ data:currentUser });
+    } catch (error) {
+        console.error("Error finding current user:", error);
+        c.status(500);
+        return c.json({ message: "Error while finding the current user" });
+    }
+});
 
 blogRouter.put('/',async (c) => {
     const userId = c.get("userId"); 
