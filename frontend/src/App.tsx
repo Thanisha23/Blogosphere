@@ -7,6 +7,7 @@ import Publish from "./pages/Publish"
 import { ToastContainer } from "react-toastify"
 import Home from "./pages/Home"
 import Drafts from "./pages/Drafts"
+import MyBlogs from "./pages/MyBlogs"
 
 
 
@@ -23,6 +24,7 @@ const App = () => {
           <Route path="/blogs" element={<Blogs/>}/>
           <Route path="/publish" element={<Publish/>}/>
           <Route path="/drafts" element={<Drafts />} />
+          <Route path="/myblogs" element={<MyBlogs />} />
           <Route />
          
       </Routes>

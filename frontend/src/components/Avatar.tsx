@@ -5,6 +5,7 @@ interface AvatarProps {
 }
 const Avatar = ({size = "small" }: AvatarProps) => {
   const {name} = useuserStore();
+  
   return (
     <div 
   className={`relative inline-flex items-center justify-center font-robotoCondensed   bg-white rounded-full  h-10  w-10`}

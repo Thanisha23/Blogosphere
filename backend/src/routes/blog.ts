@@ -22,7 +22,17 @@ blogRouter.use("/*",async(c,next) => {
     }).$extends(withAccelerate());
     c.set("prisma",prisma as any);
    
-    if (c.req.method === 'GET' && !c.req.path.endsWith('/user/me')) {
+
+    // !c.req.path.endsWith('/user/me') && !c.req.path.endsWith("/user/myblogs")
+    // the above routes cannot bypass the authentication thus can have access to headers i.e token
+    /*
+    // This means that for the '/user/myblogs' route:
+
+// The middleware will now check for the Authorization header
+// It will attempt to verify the JWT token in that header
+// If successful, it will set the userId in the context
+*/
+    if (c.req.method === 'GET' && !c.req.path.endsWith('/user/me') && !c.req.path.endsWith("/user/myblogs")) {
         await next();
         return;
       }
@@ -138,9 +148,41 @@ blogRouter.get('/:id', async(c) => {
     });
    }
   })
-blogRouter.post("/hi",(c) => {
-   return c.text("middleware successful")
-})
+
+  blogRouter.get("/user/me", async (c) => {
+    console.log("Entering /user/me route");
+    const prisma = c.get("prisma");
+    const userId = c.get("userId");
+console.log(`userId from context:${userId}`);
+    if (!userId) {
+        c.status(401);
+        return c.json({ message: "Unauthorized: User ID not found" });
+    }
+
+    try {
+        const currentUser = await prisma.user.findUnique({
+            where: {
+                id: userId
+            },
+            select: {
+                id: true,
+                email: true,
+                name: true
+            }
+        });
+
+        if (!currentUser) {
+            c.status(404);
+            return c.json({ message: "User not found" });
+        }
+
+        return c.json({ data:currentUser });
+    } catch (error) {
+        console.error("Error finding current user:", error);
+        c.status(500);
+        return c.json({ message: "Error while finding the current user" });
+    }
+});
 
 
 blogRouter.post("/",async (c) => {
@@ -233,6 +275,51 @@ console.log(`userId from context:${userId}`);
         return c.json({ message: "Error while finding the current user" });
     }
 });
+
+blogRouter.get("/user/myblogs",async (c) => {
+    const prisma = c.get("prisma");
+    const userId = c.get("userId");
+    console.log("Fetching blogs for user:",userId);
+    if(!userId){
+        console.log("user Id not found in context");
+        return c.json({
+            error: "Unauthorized: User ID not found"
+        });
+    }
+        try {
+            const blogs = await prisma.blog.findMany({
+                where:{
+                    authorId:userId,
+                    published:true
+                },
+                select:{
+                    id:true,
+                    title:true,
+                    content:true,
+                    imageId:true,
+                   
+                }
+            });
+            console.log(`Found ${blogs.length} blogs for user ${userId}`);
+
+            if(blogs.length === 0){
+                return c.json({
+                    blog:[],
+                    message:"No Blogs found for this user"
+                });
+            }
+
+            return c.json({
+                blogs
+            })
+        } catch (error) {
+            console.log("Error fetching my blogs",error);
+            return c.json({
+                error:"Failed to fetch my blogs"
+            },500);
+        }
+   
+})
 
 blogRouter.put('/',async (c) => {
     const userId = c.get("userId"); 

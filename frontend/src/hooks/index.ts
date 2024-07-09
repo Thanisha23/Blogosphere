@@ -130,3 +130,50 @@ export const useDrafts = (postsPerPage = 3) => {
         prevPage
     }
 }
+
+export const useMyBlogs = (postsPerPage = 3) => {
+    const [loading,setLoading] = useState(true);
+    const [blogs,setBlogs] = useState<Blog[]>([]);
+    const [currentPage,setCurrentPage] = useState(1);
+    const [totalPages,setTotalPages] = useState(0);
+
+
+    useEffect(() => {
+        axios.get(`${BACKEND_URL}/api/v1/blog/user/myblogs`,{
+            headers: {
+                Authorization : localStorage.getItem("token")
+            }
+        }).then(response => {
+            setBlogs(response.data.blogs || []);
+            setTotalPages(Math.ceil((response.data.blogs?.length || 0) / postsPerPage));
+            setLoading(false);
+        }).catch(error => {
+            console.error('Error fetching my blogs:', error);
+            setLoading(false);
+        });
+    },[postsPerPage])
+
+    const nextPage = () => {
+        setCurrentPage(prev => Math.min(prev + 1, totalPages));
+    }
+
+    const prevPage = () => {
+        setCurrentPage(prev => Math.max(prev - 1, 1));
+    }
+
+    const paginatedBlogs =blogs.length > 0 ?  blogs.slice(
+        (currentPage - 1) * postsPerPage,
+        currentPage * postsPerPage
+    ) : [];
+
+
+  return {
+        loading,
+        blogs: paginatedBlogs,
+        currentPage,
+        totalPages,
+        nextPage,
+        prevPage
+  }
+
+}
