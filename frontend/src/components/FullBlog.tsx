@@ -11,7 +11,7 @@ interface FullBlogProps {
 
 const FullBlog:React.FC<FullBlogProps> = ({blog}: {blog: Blog}) =>
 {
-  const [isLoading,setIsLoading] = useState(false); 
+  const [isLoading] = useState(false); 
 
  
   return (
