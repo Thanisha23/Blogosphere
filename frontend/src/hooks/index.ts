@@ -13,6 +13,14 @@ export interface Blog {
   
 }
 
+export interface Draft {
+    content: string;
+    title:string;
+    id:string;
+    imageId:string;
+
+}
+
 export const useBlogs = (postsPerPage = 3) => {
     const [loading,setLoading] = useState(true);
     const [blogs,setBlogs] = useState<Blog[]>([]);
@@ -57,30 +65,6 @@ export const useBlogs = (postsPerPage = 3) => {
 
 }
 
-// export const useBlogs = () => {
-//     const [loading,setLoading] = useState(true);
-//     const [blogs,setBlogs] = useState([]);
-//     const [currentPage,setCurrentPage] = useState(1);
-//     const [blogsPerPage,setBlogsPerPage] = useState(5);
-
-//     useEffect(() => {
-       
-//             try {
-//                 axios.get(`${BACKEND_URL}/api/v1/blog/bulk`,{
-//                                 headers: {
-//                                     Authorization : localStorage.getItem("token")
-//                                 }
-//                             }).then(response => {
-//                                 setBlogs(response.data.blogs);
-//                                 setLoading(false);
-//                             })
-//             } catch (error) {
-//                 console.log(error);
-//             }
-
-        
-//     },[])
-// }
 
 export const useBlog = ({id} : {id : string}) => {
     const [loading,setLoading] = useState(true);
@@ -101,4 +85,48 @@ export const useBlog = ({id} : {id : string}) => {
     loading,
     blog
   }
+}
+
+export const useDrafts = (postsPerPage = 3) => {
+    const [loading,setLoading] = useState(true);
+    const [drafts,setDrafts] = useState<Draft[]>([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(0);
+
+    useEffect(() => {
+        axios.get(`${BACKEND_URL}/api/v1/blog/user/drafts`, {
+            headers: {
+                Authorization: localStorage.getItem("token")
+            }
+        }).then(response => {
+            setDrafts(response.data.drafts);
+            setTotalPages(Math.ceil(response.data.drafts.length / postsPerPage));
+            setLoading(false);
+        }).catch(error => {
+            console.error('Error fetching drafts:', error);
+            setLoading(false);
+        });
+    }, [postsPerPage]);
+
+    const nextPage = () => {
+        setCurrentPage(prev => Math.min(prev + 1, totalPages));
+    }
+
+    const prevPage = () => {
+        setCurrentPage(prev => Math.max(prev - 1, 1));
+    }
+
+    const paginatedDrafts = drafts.slice(
+        (currentPage - 1) * postsPerPage,
+        currentPage * postsPerPage
+    );
+
+    return {
+        loading,
+        drafts: paginatedDrafts,
+        currentPage,
+        totalPages,
+        nextPage,
+        prevPage
+    }
 }

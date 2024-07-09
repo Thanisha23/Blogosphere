@@ -57,6 +57,9 @@ blogRouter.use("/*",async(c,next) => {
 
    try {
     const blogs = await prisma.blog.findMany({
+        where:{
+            published:true
+        },
         select: {
             content :true,
             title: true,
@@ -171,7 +174,7 @@ blogRouter.post("/",async (c) => {
        }
 })
 
-blogRouter.get("/drafts",async(c) => {
+blogRouter.get("/user/drafts",async(c) => {
     const prisma = c.get("prisma");
     const userId = c.get("userId");
 

@@ -11,6 +11,7 @@ interface BlogCreationRequest {
     title: string;
     content: string;
     imageId?: string;
+    published:boolean;
   }
   
 
@@ -22,6 +23,13 @@ const Publish = () => {
   const [publicId, setPublicId] = useState<string | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [isLoading,setIsLoading] = useState(false);
+
+
+    const saveDraft = async() => {
+      await publishPost(false);
+    }
+
+  
 
   const uploadImage = async (file: File) => {
     const formData = new FormData();
@@ -41,7 +49,7 @@ const Publish = () => {
     }
   };
 
-  const publishPost = async () => {
+  const publishPost = async (published = true) => {
     let uploadedPublicId = null;
   
     if (imageSelected) {
@@ -60,7 +68,8 @@ const Publish = () => {
   
     const blogData: BlogCreationRequest = {
       title,
-      content
+      content,
+      published
     };
   
     if (uploadedPublicId) {
@@ -85,10 +94,14 @@ const Publish = () => {
 
 
       if (response) {
-      console.log(`Blog Id - ${response.data.id}`)
-      navigate(`/blog/${response.data.id}`);
-      }
-    } catch (error) {
+        console.log(`Blog Id - ${response.data.id}`)
+        if (published) {
+            navigate(`/blog/${response.data.id}`);
+        } else {
+            navigate('/drafts');  // Redirect to drafts page
+        }
+    }
+} catch (error) {
       console.error("Error publishing post", error);
     }
   };
@@ -119,8 +132,10 @@ const Publish = () => {
       Write a Blog Post
     </div>
     <div className="flex justify-center items-center gap-4">
-     <Button mode="dark" text="Save as draft" />
-     <div onClick={publishPost}>
+    <div onClick={saveDraft}>
+    <Button mode="dark" text="Save as draft" />
+    </div>
+     <div onClick={() => publishPost(true)}>
      <Button mode="dark" text="Publish" />
      </div>
     </div>
