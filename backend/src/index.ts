@@ -20,7 +20,7 @@ const app = new Hono<{
 
 });
 
-// Add this to handle OPTIONS requests explicitly
+  // Add this to handle OPTIONS requests explicitly
 app.options('*', (c) => {
   return c.text('', 204)
 })
