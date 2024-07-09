@@ -9,7 +9,8 @@ import * as bcrypt from "bcryptjs"
 export const userRouter = new Hono<{
     Bindings:{
         DATABASE_URL:string,
-        JWT_SECRET:string
+        JWT_SECRET:string,
+        FRONTEND_URL:string
     },
     Variables:{
         prisma:PrismaClient,
@@ -69,7 +70,7 @@ userRouter.post("/signup",async(c) => {
       const jwt = await sign({id: user.id},c.env.JWT_SECRET);
 
        // Add CORS headers
-  c.header('Access-Control-Allow-Origin', 'http://localhost:5173')
+  c.header('Access-Control-Allow-Origin',c.env.FRONTEND_URL)
   c.header('Access-Control-Allow-Methods', 'POST, OPTIONS')
   c.header('Access-Control-Allow-Headers', 'Content-Type')
       return c.json({
@@ -117,7 +118,7 @@ try {
     const jwt = await sign({ id: user.id }, c.env.JWT_SECRET);
 
    // Add CORS headers
-   c.header('Access-Control-Allow-Origin', 'http://localhost:5173')
+   c.header('Access-Control-Allow-Origin', c.env.FRONTEND_URL)
    c.header('Access-Control-Allow-Methods', 'POST, OPTIONS')
    c.header('Access-Control-Allow-Headers', 'Content-Type')
 	return c.json({
