@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Blog } from "../hooks"
-import AppBar from "./AppBar"
-import React, {  useState } from "react";
+import { Blog } from "../hooks";
+import AppBar from "./AppBar";
+import React, { useState } from "react";
 import { Image } from "cloudinary-react";
-import {   CLOUD_NAME } from "../config";
+import { CLOUD_NAME } from "../config";
 import Button from "./Button";
 interface FullBlogProps {
     blog: Blog;
