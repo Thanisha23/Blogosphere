@@ -1,5 +1,5 @@
 {
     "rewrites": [
-      { "source": "/api/:path*", "destination": "https://your-cloudflare-workers-url.com/api/:path*" }
+      { "source": "/(.*)", "destination": "/index.html" }
     ]
   }
