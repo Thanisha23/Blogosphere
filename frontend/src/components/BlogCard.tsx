@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom"
 import { Image } from "cloudinary-react"
-import { CLOUD_NAME } from "../config"
 import AuthorAvatar from "./AuthorAvatar"
 
 interface BlogCardProps {
@@ -20,7 +19,7 @@ const BlogCard = ({
     <div className="bg-white shadow-md rounded-lg overflow-hidden">
       <div className="w-full h-48 overflow-hidden">
         <Image 
-          cloudName={CLOUD_NAME}
+          cloudName={import.meta.env.VITE_CLOUD_NAME}
           publicId={imageId}
           className="w-full h-full object-cover"
         />

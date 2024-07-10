@@ -1,5 +1,4 @@
 import axios from "axios";
-import { BACKEND_URL, CLOUDINARY_URL, CLOUD_NAME } from "../config";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Image } from "cloudinary-react";
@@ -37,7 +36,7 @@ const Publish = () => {
     formData.append("upload_preset", "blogs-images");
   
     try {
-      const response = await axios.post(CLOUDINARY_URL, formData);
+      const response = await axios.post(import.meta.env.VITE_CLOUDINARY_URL, formData);
       console.log(response);
       return  {
         publicId: response.data.public_id,
@@ -78,7 +77,7 @@ const Publish = () => {
   
     try {
       const response = await axios.post(
-        `${BACKEND_URL}/api/v1/blog`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/blog`,
         blogData,
         {
           headers: {
@@ -151,7 +150,7 @@ const Publish = () => {
             </div>
           ) : publicId ? (
             <Image
-              cloudName={CLOUD_NAME}
+              cloudName={import.meta.env.VITE_CLOUD_NAME}
               publicId={publicId}
               className="w-full h-64 object-cover"
             />

@@ -4,7 +4,6 @@ import Skeleton from "../components/Skeleton";
 import { useBlogs } from "../hooks"
 import { GoArrowLeft } from "react-icons/go";
 import { GoArrowRight } from "react-icons/go";
-import { BACKEND_URL } from "../config";
 import axios from "axios";
 import { useEffect } from "react";
 import {useuserStore} from "../store/userStore"
@@ -17,7 +16,7 @@ const Blogs = () => {
         async function sendRequest() {
           try {
             const response = await axios.get(
-              `${BACKEND_URL}/api/v1/blog/user/me`,{
+              `${import.meta.env.VITE_BACKEND_URL}/api/v1/blog/user/me`,{
                 withCredentials: true,
                 headers: {
                   "Authorization":localStorage.getItem("token"),

@@ -3,7 +3,6 @@ import { Blog } from "../hooks";
 import AppBar from "./AppBar";
 import React, { useState } from "react";
 import { Image } from "cloudinary-react";
-import { CLOUD_NAME } from "../config";
 import Button from "./Button";
 interface FullBlogProps {
     blog: Blog;
@@ -40,7 +39,7 @@ const FullBlog:React.FC<FullBlogProps> = ({blog}: {blog: Blog}) =>
     ) : blog.imageId ? (
       <>
         <Image
-          cloudName={CLOUD_NAME}
+          cloudName={import.meta.env.VITE_CLOUD_NAME}
           publicId={blog.imageId}
           className="w-[80%] max-w-2xl object-contain rounded-lg mx-auto"
         />

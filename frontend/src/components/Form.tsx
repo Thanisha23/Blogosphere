@@ -3,7 +3,6 @@ import {SignupInput,SigninInput} from "blogosphere-common"
 import LabelledInputType from "./LabelledInputType"
 import { Link,useNavigate } from "react-router-dom"
 import axios from "axios"
-import { BACKEND_URL } from "../config"
 import { toast } from "react-toastify"
 import "react-toastify/ReactToastify.css"
 type FormInputs = SignupInput | SigninInput;
@@ -26,7 +25,7 @@ const Form = ({type} : {type: "signup" | "signin"}) => {
     async function sendRequest() {
         try {
           const response = await axios.post(
-            `${BACKEND_URL}/api/v1/user/${type === "signup" ? "signup" : "signin"}`,
+            `${import.meta.env.VITE_BACKEND_URL}/api/v1/user/${type === "signup" ? "signup" : "signin"}`,
             postInputs,
             {
               withCredentials: true,

@@ -1,3 +1,0 @@
-export const BACKEND_URL = "YOUR_BACKEND_URL"
-export const CLOUDINARY_URL = "YOUR_CLOUDINARY_URL"
-export const CLOUD_NAME = "YOUR_CLOUD_NAME"
