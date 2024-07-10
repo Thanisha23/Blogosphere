@@ -10,8 +10,8 @@ const app = new Hono<{
 }>()
   app.use("*",async(c,next) => {
     const origin = c.env.FRONTEND_URL
-    cors({
-    origin:['http://localhost:5173',origin],
+    return cors({
+    origin:[origin],
     allowMethods:['POST','GET','OPTIONS'],
     allowHeaders: ['Content-Type', 'Authorization'],
     exposeHeaders: ['Content-Length'],
