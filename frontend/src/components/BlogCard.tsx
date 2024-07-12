@@ -3,19 +3,20 @@ import { Image } from "cloudinary-react"
 import AuthorAvatar from "./AuthorAvatar"
 
 interface BlogCardProps {
-    id: string
+    
     authorName: string,
     title: string,
     content: string,
     publishedDate: string,
     imageId: string,
+    to:string
 }
 
 const BlogCard = ({
-    id, authorName, title, content, publishedDate, imageId
+     authorName, title, content, publishedDate, imageId,to
 }: BlogCardProps) => {
   return (
-   <Link className="w-[60%] font-robotoCondensed max-w-[25rem]" to={`/blog/${id}`}>
+   <Link className="w-[60%] font-robotoCondensed max-w-[25rem]" to={to}>
     <div className="bg-white shadow-md rounded-lg overflow-hidden">
       <div className="w-full h-48 overflow-hidden">
         <Image 
@@ -45,24 +46,3 @@ const BlogCard = ({
 
 export default BlogCard
 
-  {/* <div className="font-bonaNova">
-
-<div className="flex justify-start items-center gap-5 ">
-<Avatar size={"big"} authorName={authorName} />
-<div>
-{authorName} <span className="text-[0.4rem]">&#9679;</span> {publishedDate}
-</div>
-</div>
-<div className="font-semibold text-2xl pt-4">
-    {title}
-</div>
-<div>
-    {content.slice(0,150) + "..."}
-</div>
-    <div className="pt-12">
-        {`${Math.ceil(content.length / 100)} min read`}
-    </div>
-<div className="h-1 w-full bg-slate-500">
-
-</div>
-</div> */}

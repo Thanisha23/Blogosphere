@@ -54,8 +54,8 @@ const Blogs = () => {
             <div className="lg:flex-row flex-col md:flex-col flex justify-center items-center gap-[2rem] min-h-[70vh] mt-[3rem] mx-auto">
                 {blogs.map((blog) => (
                     <BlogCard 
+                        to={`/blog/${blog.id}`}
                         key={blog.id}
-                        id={blog.id} 
                         authorName={blog.author.name || "Anonymous"} 
                         imageId={blog.imageId}
                         title={blog.title} 

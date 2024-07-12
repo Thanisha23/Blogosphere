@@ -9,10 +9,12 @@ const app = new Hono<{
   }
 }>()
   app.use("*",async(c,next) => {
-    const origin = c.env.FRONTEND_URL
+    // const origin = c.env.FRONTEND_URL
+    const frontendUrls = c.env.FRONTEND_URL.split(",");
     return cors({
-    origin:[origin],
-    allowMethods:['POST','GET','OPTIONS'],
+    // origin:[origin],
+    origin:frontendUrls,
+    allowMethods:['POST','GET','PUT','DELETE','OPTIONS'],
     allowHeaders: ['Content-Type', 'Authorization'],
     exposeHeaders: ['Content-Length'],
     credentials: true,

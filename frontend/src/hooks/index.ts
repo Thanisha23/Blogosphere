@@ -8,7 +8,8 @@ export interface Blog {
     "author" : {
     "name" : string
     }
-    "imageId":string
+    "imageId":string,
+    "published":boolean
   
 }
 
@@ -129,6 +130,8 @@ export const useDrafts = (postsPerPage = 3) => {
         prevPage
     }
 }
+
+
 
 export const useMyBlogs = (postsPerPage = 3) => {
     const [loading,setLoading] = useState(true);

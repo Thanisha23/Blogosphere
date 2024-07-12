@@ -32,7 +32,7 @@ blogRouter.use("/*",async(c,next) => {
 // It will attempt to verify the JWT token in that header
 // If successful, it will set the userId in the context
 */
-    if (c.req.method === 'GET' && !c.req.path.endsWith('/user/me') && !c.req.path.endsWith("/user/myblogs")) {
+    if (c.req.method === 'GET' && !c.req.path.endsWith('/user/me') && !c.req.path.endsWith("/user/myblogs") || c.req.method === 'PUT') {
         await next();
         return;
       }
@@ -321,7 +321,7 @@ blogRouter.get("/user/myblogs",async (c) => {
    
 })
 
-blogRouter.put('/',async (c) => {
+blogRouter.put('/update',async (c) => {
     const userId = c.get("userId"); 
     const prisma = c.get("prisma")
     const body = await c.req.json();

@@ -101,9 +101,6 @@ const Form = ({type} : {type: "signup" | "signin"}) => {
    </div>
 </form>
 </div>
-
-
-
     </div>
   )
 }

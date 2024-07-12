@@ -31,8 +31,8 @@ const MyBlogs = () => {
             {blogs.length > 0 ? (
     blogs.map((blog) => (
         <BlogCard 
+            to={`/blog/${blog.id}`}
             key={blog.id}
-            id={blog.id} 
             authorName={name} 
             imageId={blog.imageId}
             title={blog.title} 

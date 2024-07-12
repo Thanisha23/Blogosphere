@@ -8,7 +8,7 @@ import { ToastContainer } from "react-toastify"
 import Home from "./pages/Home"
 import Drafts from "./pages/Drafts"
 import MyBlogs from "./pages/MyBlogs"
-
+import Draft from "./pages/Draft"
 
 
 const App = () => {
@@ -24,6 +24,7 @@ const App = () => {
           <Route path="/blogs" element={<Blogs/>}/>
           <Route path="/publish" element={<Publish/>}/>
           <Route path="/drafts" element={<Drafts />} />
+          <Route path="/draft/:id" element={<Draft />} />
           <Route path="/myblogs" element={<MyBlogs />} />
           <Route />
          
