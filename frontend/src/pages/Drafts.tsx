@@ -27,6 +27,8 @@ const Drafts: React.FC = () => {
             <div className="lg:flex-row flex-col md:flex-col flex justify-center items-center gap-[2rem] min-h-[70vh] mt-[3rem] mx-auto">
                 {drafts.map((draft) => (
                     <BlogCard 
+                    blogId={draft.id}
+                    deleteIcon={true}
                     to={`/draft/${draft.id}`}
                         key={draft.id}
                         authorName={"You"} 

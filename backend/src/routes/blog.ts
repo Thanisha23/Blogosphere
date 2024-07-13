@@ -23,16 +23,11 @@ blogRouter.use("/*",async(c,next) => {
     c.set("prisma",prisma as any);
    
 
-    // !c.req.path.endsWith('/user/me') && !c.req.path.endsWith("/user/myblogs")
-    // the above routes cannot bypass the authentication thus can have access to headers i.e token
+    // the above routes can bypass the authentication thus cannot have access to headers i.e token
     /*
-    // This means that for the '/user/myblogs' route:
-
-// The middleware will now check for the Authorization header
-// It will attempt to verify the JWT token in that header
-// If successful, it will set the userId in the context
+  //so the for ex- c.req.method === 'GET' && !c.req.path.endsWith('/user/me') if re method is 'GET' and doesn't end with /user/me then it will bypass the authorization i.e wont be able to access the token
 */
-    if (c.req.method === 'GET' && !c.req.path.endsWith('/user/me') && !c.req.path.endsWith("/user/myblogs") || c.req.method === 'PUT') {
+if (c.req.method === 'GET' && !c.req.path.endsWith('/user/me') && !c.req.path.endsWith("/user/drafts") && !c.req.path.endsWith("/user/myblogs") || c.req.method === 'PUT' || c.req.method === 'DELETE' && !c.req.path.endsWith("/delete")){
         await next();
         return;
       }
@@ -60,6 +55,9 @@ blogRouter.use("/*",async(c,next) => {
       }
 
 })
+
+
+
 
   //We should add pagination here...i.e returning only first 10 blogs and then user can request more 10 later
   blogRouter.get('/bulk', async(c) => {
@@ -241,6 +239,8 @@ blogRouter.get("/user/drafts",async(c) => {
     
 })
 
+
+
 blogRouter.get("/user/me", async (c) => {
     console.log("Entering /user/me route");
     const prisma = c.get("prisma");
@@ -356,6 +356,83 @@ blogRouter.put('/update',async (c) => {
  }
   })
 
+ 
 
 
 
+
+  blogRouter.delete('/userBlog/delete', async (c) => {
+    const userId = c.get("userId"); 
+    if (!userId) {
+      return c.json({ error: "Unauthorized" }, 401);
+    }
+  
+    const prisma = c.get("prisma");
+    const body = await c.req.json();
+    const blogId = body.blogId;
+  
+    if (!blogId) {
+      return c.json({ error: "Blog ID is required" }, 400);
+    }
+  
+    try {
+      const blog = await prisma.blog.findUnique({
+        where: { id: blogId }
+      });
+  
+      if (!blog) {
+        return c.json({ error: "Blog not found" }, 404);
+      }
+  
+      if (blog.authorId !== userId) {
+        return c.json({ error: "Unauthorized to delete this blog" }, 403);
+      }
+  
+      await prisma.blog.delete({
+        where: { id: blogId }
+      });
+  
+      return c.json({ message: "Blog deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting blog:", error);
+      return c.json({ error: "Error deleting the blog" }, 500);
+    }
+  });
+
+  blogRouter.delete('/delete', async (c) => {
+    const userId = c.get("userId"); 
+    if (!userId) {
+      return c.json({ error: "Unauthorized" }, 401);
+    }
+  
+    const prisma = c.get("prisma");
+    const body = await c.req.json();
+    const blogId = body.blogId;
+  
+    if (!blogId) {
+      return c.json({ error: "Blog ID is required" }, 400);
+    }
+  
+    try {
+      const blog = await prisma.blog.findUnique({
+        where: { id: blogId }
+      });
+  
+      if (!blog) {
+        return c.json({ error: "Blog not found" }, 404);
+      }
+  
+      if (blog.authorId !== userId) {
+        return c.json({ error: "Unauthorized to delete this blog" }, 403);
+      }
+  
+      await prisma.blog.delete({
+        where: { id: blogId }
+      });
+  
+      return c.json({ message: "Blog deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting blog:", error);
+      return c.json({ error: "Error deleting the blog" }, 500);
+    }
+  });

@@ -10,9 +10,6 @@ type BlogHookResult = {
     loading: boolean;
     blog: Blog | undefined;
 }
-
-
-
 const Blog = () => {
     const {id} = useParams();
     const {loading, blog}: BlogHookResult = useBlog({
