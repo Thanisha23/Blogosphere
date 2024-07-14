@@ -12,6 +12,7 @@ export default {
         "castoro": ["Castoro Titling", "serif"],
         "antonSC": ["Anton SC", "sans-serif"],
         "robotoCondensed": ["Roboto Condensed", "sans-serif"],
+        "merriweather":["Merriweather", "serif"]
       }
     },
   },

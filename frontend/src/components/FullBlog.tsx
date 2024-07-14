@@ -17,7 +17,7 @@ const FullBlog:React.FC<FullBlogProps> = ({blog}: {blog: Blog}) =>
     <>
 <AppBar />
 <div className="px-24 pt-[4rem] flex justify-between items-center w-[100%]">
-   <div className="font-antonSC text-2xl w-[50%] pt-[0.7rem]">
+   <div className="font-merriweather font-extrabold text-4xl w-[50%] pt-[0.7rem]">
   {blog.title}
     </div>
     <div className="flex justify-end items-center gap-4 w-[50%]">
@@ -41,11 +41,11 @@ const FullBlog:React.FC<FullBlogProps> = ({blog}: {blog: Blog}) =>
         <Image
           cloudName={import.meta.env.VITE_CLOUD_NAME}
           publicId={blog.imageId}
-          className="w-[80%] max-w-2xl object-contain rounded-lg mx-auto"
+          className="w-[80%] h-[15rem] max-w-3xl object-cover rounded-lg mx-auto"
         />
         <textarea
           readOnly
-          className="font-medium text-lg py-10 font-robotoCondensed text-center w-[80%] max-w-2xl mx-auto rounded-b-lg focus:outline-none rounded-lg focus:border-gray-200 focus:ring-1 focus:ring-gray-200 mt-4"
+          className="font-medium text-lg py-10 px-4 font-merriweather  text-center w-[80%] max-w-3xl mx-auto rounded-b-lg focus:outline-none rounded-lg focus:border-gray-200 focus:ring-1 focus:ring-gray-200 mt-4"
           rows={20}
         >
           {blog.content}
@@ -54,7 +54,7 @@ const FullBlog:React.FC<FullBlogProps> = ({blog}: {blog: Blog}) =>
     ) : (
       <textarea
         readOnly
-        className="font-medium text-lg py-10 font-robotoCondensed w-[80%] max-w-2xl mx-auto rounded-b-lg focus:outline-none rounded-lg text-center focus:border-gray-200 focus:ring-1 focus:ring-gray-200 mt-4"
+        className="font-medium text-lg py-10 px-4 font-merriweather w-[80%] max-w-3xl mx-auto rounded-b-lg focus:outline-none rounded-lg text-center focus:border-gray-200 focus:ring-1 focus:ring-gray-200 mt-4"
         rows={20}
       >
         {blog.content}

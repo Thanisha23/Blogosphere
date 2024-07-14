@@ -59,13 +59,13 @@ const BlogCard = ({
 
 
     return (
-       <div  className="w-[60%] font-robotoCondensed relative max-w-[25rem]">
+       <div  className="w-[60%] font-roboto relative max-w-[25rem]">
          <Link to={to}>
             <div className="bg-white shadow-md rounded-lg overflow-hidden">
                 {deleteIcon && (
                     <div className="absolute right-2 top-4">
                         <button onClick={handleToggleClick}>
-                            <SlOptionsVertical size={20} />
+                            <SlOptionsVertical className="bg-white h-9 rounded-l-2xl rounded-br-2xl" size={20} />
                         </button>
                         {showDeleteOption && (
                             <button 

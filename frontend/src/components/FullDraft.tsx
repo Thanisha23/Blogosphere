@@ -68,7 +68,7 @@ const FullDraft: React.FC<FullDraftProps> = ({ blog }) => {
     <>
       <AppBar />
       <div className="px-24 pt-[4rem] flex justify-between items-center w-[100%]">
-        <div className="font-antonSC text-2xl w-[50%] pt-[0.7rem]">
+        <div className="font-merriweather text-2xl w-[50%] pt-[0.7rem]">
           {blog.title}
         </div>
         <div className="flex justify-end items-center gap-4 w-[50%]">
@@ -121,7 +121,7 @@ const FullDraft: React.FC<FullDraftProps> = ({ blog }) => {
                 readOnly={!editable}
                 value={updateInputs.title}
                 onChange={(e) => setUpdateInputs({ ...updateInputs, title: e.target.value })}
-                className="font-medium text-lg py-10 font-robotoCondensed text-center w-[80%] max-w-2xl mx-auto rounded-b-lg focus:outline-none rounded-lg focus:border-gray-200 focus:ring-1 focus:ring-gray-200 mt-4"
+                className="font-medium text-lg py-10 font-merriweather text-center w-[80%] max-w-2xl mx-auto rounded-b-lg focus:outline-none rounded-lg focus:border-gray-200 focus:ring-1 focus:ring-gray-200 mt-4"
                 rows={2}
               />
             </>
@@ -130,7 +130,7 @@ const FullDraft: React.FC<FullDraftProps> = ({ blog }) => {
             readOnly={!editable}
             value={updateInputs.content}
             onChange={(e) => setUpdateInputs({ ...updateInputs, content: e.target.value })}
-            className="font-medium text-lg py-10 font-robotoCondensed w-[80%] max-w-2xl mx-auto rounded-b-lg focus:outline-none rounded-lg text-center focus:border-gray-200 focus:ring-1 focus:ring-gray-200 mt-4"
+            className="font-medium text-lg py-10 font-merriweather w-[80%] max-w-2xl mx-auto rounded-b-lg focus:outline-none rounded-lg text-center focus:border-gray-200 focus:ring-1 focus:ring-gray-200 mt-4"
             rows={20}
           />
         </div>
