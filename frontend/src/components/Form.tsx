@@ -36,9 +36,10 @@ const Form = ({type} : {type: "signup" | "signin"}) => {
           );
     
           const jwt = response.data.jwt;
-    
-          if (jwt) {
+          const userId = response.data.userId;
+          if (jwt && userId) {
             localStorage.setItem("token", jwt);
+            localStorage.setItem("userId", userId);
             toast.success(response.data.message,{
               position: 'top-center',
             });
@@ -51,6 +52,7 @@ const Form = ({type} : {type: "signup" | "signin"}) => {
               position:"top-center",
             });
           }
+          
         } catch (error) {
           console.error("Error during request:", error);
           // alert(`Error while ${type === "signup" ? "signing up" : "logging in"}: ${error}`);

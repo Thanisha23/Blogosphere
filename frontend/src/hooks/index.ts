@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
+import { blogIdStore } from "../store/blogIdStore";
 
 export interface Blog {
     "content" : string;
@@ -138,7 +139,7 @@ export const useMyBlogs = (postsPerPage = 3) => {
     const [blogs,setBlogs] = useState<Blog[]>([]);
     const [currentPage,setCurrentPage] = useState(1);
     const [totalPages,setTotalPages] = useState(0);
-
+    const {deletedIds} = blogIdStore();
 
     useEffect(() => {
         axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/blog/user/myblogs`,{
@@ -153,7 +154,7 @@ export const useMyBlogs = (postsPerPage = 3) => {
             console.error('Error fetching my blogs:', error);
             setLoading(false);
         });
-    },[postsPerPage])
+    },[postsPerPage,deletedIds])
 
     const nextPage = () => {
         setCurrentPage(prev => Math.min(prev + 1, totalPages));

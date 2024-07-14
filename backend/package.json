@@ -5,13 +5,13 @@
     "deploy": "wrangler deploy --minify src/index.ts"
   },
   "dependencies": {
-    "@prisma/client": "5.16.1",
+    "@prisma/client": "5.16.2",
     "@prisma/extension-accelerate": "^1.1.0",
     "@types/bcryptjs": "^2.4.6",
     "bcryptjs": "^2.4.3",
     "blogosphere-common": "^1.0.0",
     "hono": "^4.4.10",
-    "prisma": "^5.16.1"
+    "prisma": "^5.16.2"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240529.0",

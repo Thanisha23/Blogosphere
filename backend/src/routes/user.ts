@@ -123,7 +123,8 @@ try {
    c.header('Access-Control-Allow-Headers', 'Content-Type')
 	return c.json({
     jwt:jwt,
-    message:"Successful Signin"
+    message:"Successful Signin",
+    userId:user.id
   })
   }else{
     return c.json({
@@ -140,5 +141,40 @@ try {
 })
 
 
+userRouter.delete("/delete",async(c) => {
+  const prisma = new PrismaClient({
+		datasourceUrl: c.env?.DATABASE_URL	,
+	}).$extends(withAccelerate());
 
+  const body = await c.req.json();
+  const userId = body.userId;
 
+  if(!userId) {
+    return c.json({
+      message: "Unauthorised"
+    },401);
+  }
+
+  try {
+    const user = await prisma.user.findUnique({
+      where: {id: userId}
+    });
+    if(!user){
+      return c.json({
+        message:"User not found"
+      },404);
+    }
+   const deletedUser =  await prisma.user.delete({
+      where:{id:userId},
+      include:{posts:true}
+    })
+    return c.json({
+      message:"Account and associated blogs deleted successfully!",
+      deletedBlogs:deletedUser.posts.length
+    },200)
+  } catch (error) {
+    console.log("Error deleting user",error);
+    return c.json({ message: "Internal server error"}, 500);
+
+  }
+})

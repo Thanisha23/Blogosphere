@@ -9,6 +9,7 @@ import Home from "./pages/Home"
 import Drafts from "./pages/Drafts"
 import MyBlogs from "./pages/MyBlogs"
 import Draft from "./pages/Draft"
+import MyAccount from "./pages/MyAccount"
 
 
 const App = () => {
@@ -26,6 +27,7 @@ const App = () => {
           <Route path="/drafts" element={<Drafts />} />
           <Route path="/draft/:id" element={<Draft />} />
           <Route path="/myblogs" element={<MyBlogs />} />
+          <Route path="/myaccount" element={<MyAccount />} />
           <Route />
          
       </Routes>

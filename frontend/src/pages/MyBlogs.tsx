@@ -5,23 +5,20 @@ import { useMyBlogs } from "../hooks"
 import { GoArrowLeft } from "react-icons/go";
 import { GoArrowRight } from "react-icons/go";
 import { useuserStore } from "../store/userStore";
-import { useEffect, useState, useCallback } from "react";
-
+import { useMemo, useCallback } from "react";
+import { blogIdStore } from "../store/blogIdStore";
 const MyBlogs = () => {
-    const { loading, blogs: initialBlogs, currentPage, totalPages, nextPage, prevPage } = useMyBlogs();
+    const { addDeletedId, deletedIds } = blogIdStore();
+    const { loading, blogs: fetchedBlogs, currentPage, totalPages, nextPage, prevPage } = useMyBlogs();
     const { name } = useuserStore();
-    const [blogs, setBlogs] = useState(initialBlogs);
 
-    useEffect(() => {
-        setBlogs(initialBlogs);
-    }, [initialBlogs]);
-
+    const blogs = useMemo(() => 
+        fetchedBlogs.filter(blog => !deletedIds.includes(blog.id)),
+        [fetchedBlogs, deletedIds]
+    );
     const handleDelete = useCallback(async (blogId: string) => {
-        setBlogs(prevBlogs => prevBlogs.filter(blog => blog.id !== blogId));
-        
-      
-    }, []);
-
+        addDeletedId(blogId);
+    }, [addDeletedId]);
     if (loading) {
         return (
             <>

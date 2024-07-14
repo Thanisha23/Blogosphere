@@ -27,7 +27,8 @@ const Blogs = () => {
             );
             setTimeout(() => {
                 console.log(response.data.data.name);
-                setName(response.data.data.name)
+                setName(response.data.data.name);
+                localStorage.setItem("email",response.data.data.email)
               }, 0);
           } catch(error) {
                 console.log(error);
