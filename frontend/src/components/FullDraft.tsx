@@ -47,13 +47,14 @@ const FullDraft: React.FC<FullDraftProps> = ({ blog }) => {
         }
       );
       if (response.data) {
-        toast.success(response.data.message);
+       
         setEditable(false);
-        // Update the blog state here if needed
       }
       if(publish){
+        toast.success("Published successfully!")
         navigate(`/blog/${response.data.id}`);
       }else{
+        toast.success("Saved in your drafts successfully!")
         navigate('/drafts'); 
       }
     } catch (error) {
