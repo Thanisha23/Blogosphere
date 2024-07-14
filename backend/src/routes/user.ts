@@ -75,7 +75,8 @@ userRouter.post("/signup",async(c) => {
   c.header('Access-Control-Allow-Headers', 'Content-Type')
       return c.json({
         jwt:jwt,
-        message:"Signup successful"
+        message:"Signup successful",
+        userId:user.id
       })
     } catch (error) {
       c.status(403);
