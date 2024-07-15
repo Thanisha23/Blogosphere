@@ -24,7 +24,9 @@ const Drafts: React.FC = () => {
     return (
         <div className="pb-16"> {/* Added padding-bottom to account for fixed pagination */}
             <AppBar />
-            <div className="lg:flex-row flex-col md:flex-col flex justify-center items-center gap-[2rem] min-h-[70vh] mt-[3rem] mx-auto">
+            {drafts.length > 0 ? (
+                <>
+                <div className="lg:flex-row flex-col md:flex-col flex justify-center items-center gap-[2rem] min-h-[70vh] mt-[3rem] mx-auto">
                 {drafts.map((draft) => (
                     <BlogCard 
                     blogId={draft.id}
@@ -56,6 +58,12 @@ const Drafts: React.FC = () => {
                     <GoArrowRight size={20} />
                 </button>
             </div>
+                </>
+            ): (
+                <div className='flex justify-center items-center pt-[16rem] font-medium text-3xl'>
+                    NO BLOGS FOUND
+                </div>
+            )}
         </div>
     );
 };

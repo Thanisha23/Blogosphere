@@ -53,7 +53,7 @@ const Blogs = () => {
     return (
         <div className="pb-16"> {/* Added padding-bottom to account for fixed pagination */}
             <AppBar />
-            <div className="lg:flex-row flex-col md:flex-col flex justify-center items-center gap-[2rem] min-h-[70vh] mt-[3rem] mx-auto">
+            <div className="lg:flex-row flex-col md:flex-col flex justify-center items-center gap-[2rem] min-h-[70vh] mt-[9rem] mx-auto">
                 {blogs.map((blog) => (
                     <BlogCard 
                     blogId={blog.id}

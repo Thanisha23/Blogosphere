@@ -35,9 +35,10 @@ const MyBlogs = () => {
     return (
         <div className="pb-16">
             <AppBar />
-            <div className="lg:flex-row flex-col md:flex-col flex justify-center items-center gap-[2rem] min-h-[70vh] mt-[3rem] mx-auto">
-                {blogs.length > 0 ? (
-                    blogs.map((blog) => (
+            {blogs.length > 0 ? (
+                <>
+                <div className="lg:flex-row flex-col md:flex-col flex justify-center items-center gap-[2rem] min-h-[70vh] mt-[3rem] mx-auto">
+                   { blogs.map((blog) => (
                         <BlogCard 
                             blogId={blog.id}
                             deleteIcon={true}
@@ -50,30 +51,34 @@ const MyBlogs = () => {
                             publishedDate={"2nd Feb 2024"} 
                             onDelete={handleDelete}
                         />
-                    ))
-                ) : (
-                    <p>No blogs found.</p>
-                )}
-            </div>
-            <div className="fixed bottom-0 left-0 right-0 flex justify-center items-center gap-4 py-4 bg-white shadow-md">
-                <button 
-                    onClick={prevPage} 
-                    disabled={currentPage === 1}
-                    className="px-4 py-2 bg-[#19191B] text-white rounded disabled:bg-gray-300"
-                >
-                    <GoArrowLeft size={20} />
-                </button>
-                <span className="text-lg font-medium">{currentPage} of {totalPages}</span>
-                <button 
-                    onClick={nextPage} 
-                    disabled={currentPage === totalPages}
-                    className="px-4 py-2 bg-[#19191B] text-white rounded disabled:bg-gray-300"
-                >
-                    <GoArrowRight size={20} />
-                </button>
-            </div>
-        </div>
-    ) 
-}
+                    ))}
+                        </div>
+                         <div className="fixed bottom-0 left-0 right-0 flex justify-center items-center gap-4 py-4 bg-white shadow-md">
+                         <button 
+                             onClick={prevPage} 
+                             disabled={currentPage === 1}
+                             className="px-4 py-2 bg-[#19191B] text-white rounded disabled:bg-gray-300"
+                         >
+                             <GoArrowLeft size={20} />
+                         </button>
+                         <span className="text-lg font-medium">{currentPage} of {totalPages}</span>
+                         <button 
+                             onClick={nextPage} 
+                             disabled={currentPage === totalPages}
+                             className="px-4 py-2 bg-[#19191B] text-white rounded disabled:bg-gray-300"
+                         >
+                             <GoArrowRight size={20} />
+                         </button>
+                     </div>
+                     </>
+                        
+            ):(
 
+                <div className='flex justify-center items-center pt-[16rem] font-medium text-3xl'>
+                NO BLOGS FOUND
+            </div>
+            )}
+            </div>
+           
+        )}
 export default MyBlogs

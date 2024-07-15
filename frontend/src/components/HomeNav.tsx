@@ -1,24 +1,44 @@
-// import Avatar from "./Avatar"
-import { Link } from "react-router-dom"
-// import ToggleBar from "./ToggleBar"
-// import { useState } from "react"
-
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { NavButton } from "./NavButton";
 const HomeNav = () => {
-//   const [toggle,setToggle] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <div className="border-b py-5 font-robotoCondensed bg-[#19191B] border-b-slate-400 bottom-0 left-0 right-0  flex items-center justify-between px-24 relative">
-        <Link to={`/blogs`} className="">
-        <img src="/blogo-new.jpeg" alt="" width={180} height={150} /></Link>
-        <div className="flex justify-center items-center gap-6">
-        <Link to={`/signup`} className="bg-white text-black text-[1rem] font-semibold rounded-lg px-4 py-2">Sign Up</Link>
-            <Link to={`/signin`} className="bg-white text-black text-[1rem] font-semibold rounded-lg px-4 py-2">Sign In</Link>
-         
-
-
+    <nav className="border-b py-5 font-robotoCondensed bg-[#19191B] border-b-slate-400 bottom-0 left-0 right-0 px-6 md:px-24 relative">
+      <div className="flex items-center justify-between">
+        <Link to={`/blogs`}>
+          <img src="/blogo-new.jpeg" alt="" className="w-32 md:w-44 h-auto" />
+        </Link>
+        <div className="hidden md:flex justify-center items-center gap-6">
+          <NavButton to="/signup">Sign Up</NavButton>
+          <NavButton to="/signin">Sign In</NavButton>
         </div>
-      
-    </div>
-  )
-}
+        <motion.button
+          className="md:hidden text-white"
+          onClick={() => setIsOpen(!isOpen)}
+          whileTap={{ scale: 0.95 }}
+        >
+          {isOpen ? "✕" : "☰"}
+        </motion.button>
+      </div>
+      {isOpen && (
+        <motion.div
+          className="md:hidden mt-4 flex flex-col gap-4"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.3 }}
+        >
+          <NavButton to="/signup" mobile>Sign Up</NavButton>
+          <NavButton to="/signin" mobile>Sign In</NavButton>
+        </motion.div>
+      )}
+    </nav>
+  );
+};
 
-export default HomeNav
+
+
+export default HomeNav;
