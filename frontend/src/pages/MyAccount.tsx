@@ -38,7 +38,7 @@ const MyAccount = () => {
    <>
    <AppBar />
 
-   <div className="flex flex-col font-robotoCondensed justify-center items-center pt-[2rem]">
+   <div className="flex flex-col font-robotoCondensed justify-center items-center pt-[9rem]">
       <div className="w-[10rem] h-[10rem] font-bold rounded-full bg-[#19191B] flex justify-center items-center text-6xl text-white">
         {name[0].toUpperCase()}
       </div>

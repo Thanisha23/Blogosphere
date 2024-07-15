@@ -57,7 +57,7 @@ const BlogCard = ({
     }
 
     return (
-        <div className="w-full max-w-sm mx-auto font-roboto relative">
+        <div className="w-full max-w-sm mx-auto font-roboto relative px-2">
             <Link to={to} className="block">
                 <div className="bg-white shadow-lg rounded-xl overflow-hidden transition-transform duration-300 hover:scale-105">
                     {deleteIcon && (
