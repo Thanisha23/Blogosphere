@@ -110,7 +110,7 @@ const Form = ({type} : {type: "signup" | "signin"}) => {
 
 <h1 className="text-3xl font-bold text-center mb-1">Create an account</h1>
 <h4 className="text-gray-500 text-center">{type === "signup" ? "Already have an account?"  : "Don't have an account?" } <Link className="underline" to={type === "signup" ? "/signin" : "/signup"}>{type === "signup" ? "signin"  : "signup" }</Link></h4>
-<div className=" w-[60%] md:w-[50%] mx-auto mt-4 ">
+<div className=" w-[75%] md:w-[50%] mx-auto mt-4 ">
 <form className="">
   {type === "signup" ? (
      <div className="flex-col flex gap-2">

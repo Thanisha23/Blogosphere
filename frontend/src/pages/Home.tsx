@@ -9,7 +9,7 @@ const Home = () => {
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="flex flex-col gap-5 justify-center items-center text-center pt-[14rem] lg:pt-[9rem] text-5xl md:text-6xl lg:text-9xl font-antonSC px-9 text-[#19191B]"
+        className="flex flex-col md:gap-5 gap-2 justify-center items-center text-center pt-[11rem] lg:pt-[9rem] text-5xl md:text-6xl lg:text-9xl font-antonSC md:px-9 px-2 text-[#19191B]"
       >
         <motion.div
           initial={{ scale: 0.9 }}
@@ -30,7 +30,7 @@ const Home = () => {
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 1.2 }}
-        className="mx-auto pt-[4rem] md:pt-[3rem] lg:pt-[6rem] flex justify-center items-center gap-[1rem] text-3xl font-antonSC"
+        className="mx-auto pt-[4rem] md:pt-[3rem] lg:pt-[6rem] flex justify-center items-center gap-[1rem] text-2xl md:text-3xl font-antonSC"
       >
         {["Write", "Reach", "Resonate"].map((word, index) => (
           <motion.div

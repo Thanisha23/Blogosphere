@@ -138,77 +138,93 @@ const Publish = () => {
   };
 
   return (
-    <>
+    <div className="min-h-screen bg-gray-100">
       <AppBar />
       <input type="file" id="fileInput" className="hidden" onChange={handleFileChange} />
-      <div className="px-24 pt-[4rem] flex justify-between items-center">
-        <div className="font-extrabold text-4xl font-roboto pt-[0.7rem]">
-          Write a Blog Post
+      
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-28 sm:pt-36 pb-10">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8">
+          <h1 className="font-extrabold text-3xl sm:text-4xl font-roboto mb-4 sm:mb-0">
+            Write a Blog Post
+          </h1>
+          
         </div>
-        <div className="flex justify-center items-center gap-4">
-          <button disabled={isDrafting || isPublishing} onClick={saveDraft}>
-            <Button 
-              mode="dark" 
-              text={isDrafting ? "Saving..." : "Save as draft"}
-            />
-          </button>
-          <button disabled={isPublishing || isDrafting} onClick={() => publishPost(true)}>
-            <Button 
-              mode="dark" 
-              text={isPublishing ? "Publishing..." : "Publish"} 
-            />
-          </button>
-        </div>
-      </div>
-      <div className="bg-white border border-gray-200 mx-24 mb-[3rem] mt-24 rounded-lg pb-24">
-        <div className="relative w-full h-64">
-          {isLoading ? (
-            <div className="animate-pulse flex items-center justify-center w-full h-64 bg-gray-200 rounded">
-              <svg className="w-10 h-10 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
-                <path d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"/>
-              </svg>
-            </div>
-          ) : publicId ? (
-            <Image
-              cloudName={import.meta.env.VITE_CLOUD_NAME}
-              publicId={publicId}
-              className="w-full h-64 object-cover"
-            />
-          ) : imagePreview ? (
-            <img src={imagePreview} alt="Preview" className="w-full h-64 object-cover" />
-          ) : (
-            <div className="flex items-center justify-center w-full h-64 bg-gray-200 rounded">
-              <svg className="w-10 h-10 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
-                <path d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"/>
-              </svg>
-            </div>
-          )}
 
-          <div className="cursor-pointer absolute right-4 top-4 z-10 text-black bg-white p-2 rounded-lg">
-            <FiUpload 
-              size={25} 
+        <div className="bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden">
+          <div className="relative w-full h-48 sm:h-64 md:h-80">
+            {isLoading ? (
+              <div className="animate-pulse flex items-center justify-center w-full h-full bg-gray-200">
+                <svg className="w-10 h-10 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
+                  <path d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"/>
+                </svg>
+              </div>
+            ) : publicId ? (
+              <Image
+                cloudName={import.meta.env.VITE_CLOUD_NAME}
+                publicId={publicId}
+                className="w-full h-full object-cover"
+              />
+            ) : imagePreview ? (
+              <img src={imagePreview} alt="Preview" className="w-full h-full object-cover" />
+            ) : (
+              <div className="flex items-center justify-center w-full h-full bg-gray-200">
+                <svg className="w-10 h-10 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
+                  <path d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"/>
+                </svg>
+              </div>
+            )}
+
+            <button 
+              className="absolute right-4 top-4 z-10 text-white bg-gray-800 bg-opacity-50 hover:bg-opacity-70 p-2 rounded-full transition-colors duration-200"
               onClick={() => document.getElementById("fileInput")?.click()}
-            />
+            >
+              <FiUpload size={20} />
+            </button>
+          </div>
+
+          <div className="p-6">
+            <textarea
+              className="font-bold font-roboto text-2xl sm:text-3xl w-full mb-6 p-3 border rounded focus:outline-none focus:ring-2 focus:ring-[#19191B] transition-all duration-200"
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder="Enter your blog title here..."
+              value={title}
+              rows={2}
+            ></textarea>
+            <textarea
+              className="font-normal font-roboto text-base sm:text-lg w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-[#19191B] transition-all duration-200"
+              onChange={(e) => setContent(e.target.value)}
+              rows={15}
+              placeholder="Start writing your blog post here..."
+              value={content}
+            ></textarea>
           </div>
         </div>
 
-        <div className="flex-col flex gap-2">
-          <textarea
-            className="font-bold text-2xl py-10 px-6 font-roboto w-[100%] rounded-b-lg focus:outline-none focus:border-gray-200 focus:ring-1 focus:ring-gray-200"
-            onChange={(e) => setTitle(e.target.value)}
-            placeholder="Enter your blog title here..."
-            value={title}
-          ></textarea>
-          <textarea
-            className="font-semibold text-lg py-10 px-6 font-roboto w-[60%] ml-10 rounded-b-lg focus:outline-none rounded-lg focus:border-gray-200 focus:ring-1 focus:ring-gray-200"
-            onChange={(e) => setContent(e.target.value)}
-            rows={20}
-            placeholder="Start writing your blog post here..."
-            value={content}
-          ></textarea>
-        </div>
+        {/*  */}
+        <div className="flex flex-col sm:flex-row gap-4 pt-7 sm:w-full">
+            <button 
+              disabled={isDrafting || isPublishing} 
+              onClick={saveDraft}
+              className="w-full sm:w-[50%] "
+            >
+              <Button 
+                mode="dark" 
+                text={isDrafting ? "Saving..." : "Save as draft"}
+              />
+            </button>
+            <button 
+              disabled={isPublishing || isDrafting} 
+              onClick={() => publishPost(true)}
+              className="w-full sm:w-[50%]"
+            >
+              <Button 
+                mode="dark" 
+                text={isPublishing ? "Publishing..." : "Publish"} 
+              />
+            </button>
+          </div>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -16,7 +16,7 @@ export const NavButton:React.FC<NavButtonProps> = ({ to, children, mobile = fals
       <Link
         to={to}
         className={`bg-white text-black text-[1rem] font-semibold rounded-lg px-4 py-2 ${
-          mobile ? "block w-full text-center" : ""
+          mobile ? "block w-full text-center" : "flex justify-center items-center gap-2"
         }`}
       >
         {children}
