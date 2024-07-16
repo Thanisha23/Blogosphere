@@ -7,11 +7,20 @@ import { GoArrowRight } from "react-icons/go";
 import axios from "axios";
 import { useEffect } from "react";
 import {useuserStore} from "../store/userStore"
+import {format,parseISO} from "date-fns"
 
 const Blogs = () => {
     const setName = useuserStore((state) => state.setName)
     const { loading, blogs, currentPage, totalPages, nextPage, prevPage } = useBlogs();
-    
+    const formatDate = (dateString: string) => {
+        try {
+            const date = parseISO(dateString);
+            return format(date, 'MMMM d, yyyy');
+        } catch (error) {
+            console.error('Error parsing date:', error);
+            return 'Invalid Date';
+        }
+    };
 
     useEffect(() => {
         async function sendRequest() {
@@ -51,9 +60,10 @@ const Blogs = () => {
     }
   
     return (
-        <div className="pb-16"> {/* Added padding-bottom to account for fixed pagination */}
+        <div className="pb-16"> 
             <AppBar />
-            <div className="lg:flex-row flex-col md:flex-col flex justify-center items-center gap-[2rem] min-h-[70vh] mt-[9rem] mx-auto">
+            <div className="max-w-7xl mx-auto px-5 sm:px-6"> 
+                <div className="lg:flex-row flex-col md:flex-col flex justify-center items-center gap-[2rem] min-h-[70vh] mt-[9rem]">
                 {blogs.map((blog) => (
                     <BlogCard 
                     blogId={blog.id}
@@ -64,9 +74,10 @@ const Blogs = () => {
                         imageId={blog.imageId}
                         title={blog.title} 
                         content={blog.content} 
-                        publishedDate={"2nd Feb 2024"} 
+                        publishedDate={formatDate(blog.createdAt)} 
                     />
                 ))}
+            </div> 
             </div>
             <div className="fixed bottom-0 left-0 right-0 flex justify-center items-center gap-4 py-4 bg-white shadow-md">
                 <button 

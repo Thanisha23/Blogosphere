@@ -77,7 +77,8 @@ if (c.req.method === 'GET' && !c.req.path.endsWith('/user/me') && !c.req.path.en
                     name:true
                 }
             },
-            imageId : true
+            imageId : true,
+            createdAt:true
         }
     });
   
@@ -128,6 +129,7 @@ blogRouter.get('/:id', async(c) => {
                }
             },
             imageId: true,
+            createdAt:true
         }
     })
     if(!blog){
@@ -165,7 +167,8 @@ console.log(`userId from context:${userId}`);
             select: {
                 id: true,
                 email: true,
-                name: true
+                name: true,
+                
             }
         });
 
@@ -204,7 +207,8 @@ blogRouter.post("/",async (c) => {
         })
         return c.json({
             id:blog.id,
-            published:blog.published
+            published:blog.published,
+            createdAt:blog.createdAt
         })
     } catch (error) {
         console.error("error creating blog",error);
@@ -229,6 +233,7 @@ blogRouter.get("/user/drafts",async(c) => {
                 title:true,
                 content:true,
                 imageId:true,
+                createdAt:true
             }
         });
         return c.json({ drafts});
@@ -297,7 +302,7 @@ blogRouter.get("/user/myblogs",async (c) => {
                     title:true,
                     content:true,
                     imageId:true,
-                   
+                   createdAt:true
                 }
             });
             console.log(`Found ${blogs.length} blogs for user ${userId}`);
@@ -355,12 +360,6 @@ blogRouter.put('/update',async (c) => {
     })
  }
   })
-
- 
-
-
-
-
   blogRouter.delete('/userBlog/delete', async (c) => {
     const userId = c.get("userId"); 
     if (!userId) {

@@ -10,7 +10,8 @@ export interface Blog {
     "name" : string
     }
     "imageId":string,
-    "published":boolean
+    "published":boolean,
+    "createdAt":string
   
 }
 

@@ -35,9 +35,10 @@ const MyBlogs = () => {
     return (
         <div className="pb-16">
             <AppBar />
+            <div className="max-w-7xl mx-auto px-5 sm:px-6">
             {blogs.length > 0 ? (
                 <>
-                <div className="lg:flex-row flex-col md:flex-col flex justify-center items-center gap-[2rem] min-h-[70vh] mt-[3rem] mx-auto">
+                <div className="lg:flex-row flex-col md:flex-col flex justify-center items-center gap-[2rem] min-h-[70vh] mt-[9rem] mx-auto">
                    { blogs.map((blog) => (
                         <BlogCard 
                             blogId={blog.id}
@@ -48,7 +49,7 @@ const MyBlogs = () => {
                             imageId={blog.imageId}
                             title={blog.title} 
                             content={blog.content} 
-                            publishedDate={"2nd Feb 2024"} 
+                            publishedDate={new Date(blog.createdAt).toLocaleDateString()} 
                             onDelete={handleDelete}
                         />
                     ))}
@@ -78,6 +79,7 @@ const MyBlogs = () => {
                 NO BLOGS FOUND
             </div>
             )}
+            </div>
             </div>
            
         )}

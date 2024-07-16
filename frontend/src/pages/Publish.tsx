@@ -152,6 +152,7 @@ const Publish = () => {
 
         <div className="bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden">
           <div className="relative w-full h-48 sm:h-64 md:h-80">
+            {/* skeleton from flowbite */}
             {isLoading ? (
               <div className="animate-pulse flex items-center justify-center w-full h-full bg-gray-200">
                 <svg className="w-10 h-10 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">

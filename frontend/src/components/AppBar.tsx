@@ -90,7 +90,6 @@ const AppBar = () => {
               <MobileNavLink to="/publish"><div className="flex justify-start items-center gap-2"><div>New</div><div><FaPenFancy size={15} /></div></div></MobileNavLink>
               <MobileNavLink to="/myaccount">My account</MobileNavLink>
               <MobileNavLink to="/drafts">My Drafts</MobileNavLink>
-              {/* <MobileNavLink to="/" onClick={handleLogout}>Logout</MobileNavLink> */}
               <div onClick={handleLogout} className="hover:bg-white hover:text-[#19191B] block px-3 py-2 rounded-md text-base font-medium transition duration-150 ease-in-out"
   >
    Logout

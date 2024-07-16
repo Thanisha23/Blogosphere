@@ -64,7 +64,7 @@ const BlogCard = ({
                         <div className="absolute right-2 top-2 z-10">
                             <button 
                                 onClick={handleToggleClick}
-                                className="bg-white p-2 rounded-full shadow-md hover:bg-gray-100 transition-colors duration-200"
+                                className="bg-white p-2 rounded-full shadow-md hover:bg-gray-100 transition-colors duration-200 mr-2"
                             >
                                 <SlOptionsVertical size={20} />
                             </button>
@@ -96,6 +96,7 @@ const BlogCard = ({
                             <div className="ml-3">
                                 <p className="font-semibold text-gray-800">{authorName}</p>
                                 <p className="text-sm text-gray-500">{publishedDate}</p>
+                                
                             </div>
                         </div>
                     </div>
