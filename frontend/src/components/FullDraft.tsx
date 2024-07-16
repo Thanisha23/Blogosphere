@@ -30,11 +30,18 @@ const FullDraft: React.FC<FullDraftProps> = ({ blog }) => {
   };
 
   const [isLoading, setIsLoading] = useState(false);
+  const [isPublishing, setIsPublishing] = useState(false);
+  const [isDrafting, setIsDrafting] = useState(false);
   const [editable, setEditable] = useState(false);
   const [updateInputs, setUpdateInputs] = useState<FormInputs>(initialState);
 
   async function updateRequest(publish: boolean = false) {
     setIsLoading(true);
+    if (publish) {
+      setIsPublishing(true);
+    } else {
+      setIsDrafting(true);
+    }
     try {
       const response = await axios.put(
         `${import.meta.env.VITE_BACKEND_URL}/api/v1/blog/update`,
@@ -47,7 +54,6 @@ const FullDraft: React.FC<FullDraftProps> = ({ blog }) => {
         }
       );
       if (response.data) {
-       
         setEditable(false);
       }
       if(publish){
@@ -62,78 +68,92 @@ const FullDraft: React.FC<FullDraftProps> = ({ blog }) => {
       toast.error("Error updating blog");
     } finally {
       setIsLoading(false);
+      setIsDrafting(false);
+      setIsPublishing(false);
     }
   }
 
   return (
     <>
       <AppBar />
-      <div className="px-24 pt-[4rem] flex justify-between items-center w-[100%]">
-        <div className="font-merriweather text-2xl w-[50%] pt-[0.7rem]">
-          {blog.title}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-7">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8">
+          <h1 className="font-merriweather text-2xl sm:text-3xl font-bold mb-4 sm:mb-0 sm:w-1/2">
+            {blog.title}
+          </h1>
         </div>
-        <div className="flex justify-end items-center gap-4 w-[50%]">
-          <div 
-            onClick={() => updateRequest(false)}>
-          <Button
-            mode="dark"
-            text="Save as draft"
-          />
-          </div>
-          <div  onClick={() => setEditable(true)} className={editable ? "hidden" : "block"}>
-            <Button
-              mode="dark"
-              text="Edit" 
-            />
-          </div>
-          <div 
-              onClick={() => updateRequest(false)} className={editable ? "block" : "hidden"}>
-            <Button
-              mode="dark"
-              text="Save"
-            />
-          </div>
-          <div 
-            onClick={() => updateRequest(true)}>
-          <Button
-            mode="dark"
-            text="Publish"
-          />
-          </div>
-        </div>
-      </div>
-      {/* image,title,content section */}
-      <div className="bg-white border border-transparent mb-[3rem] mt-12 rounded-lg pb-24">
-        <div className="flex flex-col items-center w-full">
+
+        <div className="bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden mb-8">
           {isLoading ? (
-            <div className="animate-pulse flex items-center justify-center w-full h-64 bg-gray-200 rounded">
-              <svg className="w-10 h-10 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
+            <div className="animate-pulse flex items-center justify-center w-full h-64 bg-gray-200">
+              <svg className="w-10 h-10 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
                 <path d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"/>
               </svg>
             </div>
           ) : updateInputs.imageId ? (
-            <>
+            <div className="mb-6">
               <Image
                 cloudName={import.meta.env.VITE_CLOUD_NAME}
                 publicId={updateInputs.imageId}
-                className="w-[80%] max-w-2xl object-contain rounded-lg mx-auto"
+                className="w-full h-auto object-cover rounded-t-lg"
               />
-              <textarea
-                readOnly={!editable}
-                value={updateInputs.title}
-                onChange={(e) => setUpdateInputs({ ...updateInputs, title: e.target.value })}
-                className="font-medium text-lg py-10 font-merriweather text-center w-[80%] max-w-2xl mx-auto rounded-b-lg focus:outline-none rounded-lg focus:border-gray-200 focus:ring-1 focus:ring-gray-200 mt-4"
-                rows={2}
-              />
-            </>
+            </div>
           ) : null}
-          <textarea
-            readOnly={!editable}
-            value={updateInputs.content}
-            onChange={(e) => setUpdateInputs({ ...updateInputs, content: e.target.value })}
-            className="font-medium text-lg py-10 font-merriweather w-[80%] max-w-2xl mx-auto rounded-b-lg focus:outline-none rounded-lg text-center focus:border-gray-200 focus:ring-1 focus:ring-gray-200 mt-4"
-            rows={20}
-          />
+
+          <div className="px-6 py-4">
+            <textarea
+              readOnly={!editable}
+              value={updateInputs.title}
+              onChange={(e) => setUpdateInputs({ ...updateInputs, title: e.target.value })}
+              className="font-merriweather text-2xl sm:text-3xl font-bold w-full mb-4 p-2 rounded focus:outline-none focus:ring-2 focus:ring-gray-200"
+              rows={2}
+            />
+            <textarea
+              readOnly={!editable}
+              value={updateInputs.content}
+              onChange={(e) => setUpdateInputs({ ...updateInputs, content: e.target.value })}
+              className="font-merriweather text-lg w-full p-2 rounded focus:outline-none focus:ring-2 focus:ring-gray-200"
+              rows={20}
+            />
+          </div>
+        </div>
+
+        <div className="flex flex-col sm:flex-row gap-4 sm:w-full">
+          <button   
+           disabled={isDrafting || isPublishing}  onClick={() => updateRequest(false)} className="w-full sm:w-1/3">
+            <Button 
+              mode="dark" 
+              text={isDrafting ? "Saving..." : "Save as draft"}
+            />
+          </button>
+          <div className="w-full  sm:w-1/3">
+            {!editable ? (
+              <button className="w-full"
+              disabled={isDrafting || isPublishing}
+              onClick={() => setEditable(true)}> 
+                <Button 
+                mode="dark" 
+                text="Edit"
+              />
+              </button>
+            ) : (
+              <button   
+              disabled={isDrafting || isPublishing} onClick={() => updateRequest(false)}>
+                <Button 
+                mode="dark" 
+                text="Save"
+              />
+              </button>
+            )}
+          </div>
+          <button 
+              disabled={isPublishing || isDrafting}  onClick={() => updateRequest(true)} className="w-full sm:w-1/3">
+            <Button 
+              mode="dark" 
+              text={isPublishing ? "Publishing..." : "Publish"}
+             
+            />
+          </button>
         </div>
       </div>
     </>
