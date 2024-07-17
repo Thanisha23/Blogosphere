@@ -25,10 +25,10 @@ const ToggleBar: React.FC = () => {
 
   const handleLogout = () => {
     try {
+      navigate("/");
       localStorage.removeItem("token");
       localStorage.removeItem("email");
       localStorage.removeItem("userId");
-      navigate("/");
       toast.success("Logged out!", {
         position: "top-center"
       });

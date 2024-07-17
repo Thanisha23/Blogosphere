@@ -7,6 +7,7 @@ import { RxCross2, RxHamburgerMenu } from "react-icons/rx";
 import { NavButton } from "./NavButton";
 import { FaPenFancy } from "react-icons/fa";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 interface LinkProps {
   to: string;
@@ -14,10 +15,12 @@ interface LinkProps {
 }
 
 const AppBar = () => {
+  const navigate = useNavigate();
   const [toggle, setToggle] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const handleLogout = () => {
     try {
+      navigate("/")
       localStorage.removeItem("token");
       localStorage.removeItem("email");
       localStorage.removeItem("userId");

@@ -41,13 +41,11 @@ cd backend
 pnpm install
 ```
 
-3. **Create a file named `.env` in the root directory of backend and add the following environment variables**
+3. **Create a file named `.env` in the root directory of backend and add the following environment variables(Get DATABASE_URL from any postgreSQL DB Provider )**
 ```plaintext
 DATABASE_URL="postgresql://user:password@localhost:5432/mydatabase"
 FRONTEND_URL="http://localhost:5173"
 ```
-
-
 4. **If you don't have a `wrangler.toml` file, create one in the root directory of your project. Here's an example configuration:**
 ```
 name = "your-project-name"
@@ -79,14 +77,13 @@ pnpm run dev
 cd frontend
 pnpm install
 ```
-
-7. **Create a file named `.env` in the root directory add the following environment variables**
+8. **Create a file named `.env` in the root directory add the following environment variables**
 ```
 VITE_BACKEND_URL = "YOUR_BACKEND_URL"
 VITE_CLOUDINARY_URL = "YOUR_CLOUDINARY_URL"
 VITE_CLOUD_NAME = "YOUR_CLOUD_NAME"
 ```
-8. **Start the frontend development server**
+9. **Start the frontend development server**
 ```
 pnpm run dev
 ```
