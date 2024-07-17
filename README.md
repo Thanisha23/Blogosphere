@@ -9,7 +9,6 @@
   <img src="./frontend/src/assets/img-3.jpeg"  width="350" style="margin-bottom: 20px;" />
   <img src="./frontend/src/assets/img-4.jpeg"  width="350" style="margin-bottom: 20px;" />
   <img src="./frontend/src/assets/img-7.jpeg"  width="350" style="margin-bottom: 20px;" />
-  <img src="./frontend/src/assets/img-8.jpeg"  width="350" style="margin-bottom: 20px;" />
   <img src="./frontend/src/assets/img-2.jpeg"  width="350" style="margin-bottom: 20px;" />
   <img src="./frontend/src/assets/img-5.jpeg"  width="350" style="margin-bottom: 20px;" />
   <img src="./frontend/src/assets/img-6.jpeg"  width="350" style="margin-bottom: 20px;" />
