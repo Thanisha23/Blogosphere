@@ -8,19 +8,21 @@ import { NavButton } from "./NavButton";
 import { FaPenFancy } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-
+import { useAuthStore } from "../store/useAuthStore";
 interface LinkProps {
   to: string;
   children: ReactNode;
 }
 
 const AppBar = () => {
+  const logout = useAuthStore(state => state.userLogout)
   const navigate = useNavigate();
   const [toggle, setToggle] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const handleLogout = () => {
     try {
       navigate("/")
+      logout();
       localStorage.removeItem("token");
       localStorage.removeItem("email");
       localStorage.removeItem("userId");

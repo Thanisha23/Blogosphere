@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { motion, Variants } from "framer-motion";
+import { useAuthStore } from "../store/useAuthStore";
 
 interface ToggleBarItemProps {
   to: string;
@@ -23,9 +24,11 @@ const ToggleBarItem: React.FC<ToggleBarItemProps> = ({ to, children, variants })
 const ToggleBar: React.FC = () => {
   const navigate = useNavigate();
 
+  const logout = useAuthStore(state => state.userLogout)
   const handleLogout = () => {
     try {
       navigate("/");
+      logout();
       localStorage.removeItem("token");
       localStorage.removeItem("email");
       localStorage.removeItem("userId");

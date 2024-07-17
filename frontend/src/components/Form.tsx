@@ -6,10 +6,12 @@ import axios from "axios"
 import { toast } from "react-toastify"
 import "react-toastify/ReactToastify.css"
 import { isAdminStore } from "../store/isAdminStore"
+import { useAuthStore } from "../store/useAuthStore"
 
 type FormInputs = SignupInput | SigninInput;
 
 const Form = ({type} : {type: "signup" | "signin"}) => {
+  const setIsAuthenticated = useAuthStore((state) => state.setIsAuthenticated);
 
   const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
@@ -58,6 +60,7 @@ const Form = ({type} : {type: "signup" | "signin"}) => {
           if(response.data.isAdmin){
             navigate("/admin");
           }else{
+            setIsAuthenticated(true);
             navigate("/blogs");
           }
         } else {
