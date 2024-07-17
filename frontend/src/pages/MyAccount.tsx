@@ -23,6 +23,9 @@ const MyAccount = () => {
         }
       })
       if(response.data){
+        localStorage.removeItem("userId");
+        localStorage.removeItem("email");
+        localStorage.removeItem("token");
         toast.success("Successfully deleted your account!");
         navigate("/");
       }else{
@@ -52,7 +55,7 @@ const MyAccount = () => {
               readOnly
               type="text"
               id="name"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-[#19191B] focus:border-[#19191B] block w-full p-2.5"
               value={name}
             />
           </div>
@@ -64,7 +67,7 @@ const MyAccount = () => {
               readOnly
               type="email"
               id="email"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-[#19191B] focus:border-[#19191B] block w-full p-2.5"
               value={userEmail}
             />
           </div>

@@ -5,13 +5,15 @@ import { Link,useNavigate } from "react-router-dom"
 import axios from "axios"
 import { toast } from "react-toastify"
 import "react-toastify/ReactToastify.css"
+import { isAdminStore } from "../store/isAdminStore"
+
 type FormInputs = SignupInput | SigninInput;
 
 const Form = ({type} : {type: "signup" | "signin"}) => {
 
   const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
-
+  const setIsAdmin = isAdminStore((state) => state.setIsAdmin)
     const initialState: FormInputs = type === "signup" ? {
         name: "",
         email: "",
@@ -43,6 +45,7 @@ const Form = ({type} : {type: "signup" | "signin"}) => {
         if (jwt && userId) {
           localStorage.setItem("token", jwt);
           localStorage.setItem("userId", userId);
+          setIsAdmin(response.data.isAdmin)
           toast.success(
             type === "signup" 
               ? "Account created successfully! Welcome aboard." 
@@ -52,7 +55,11 @@ const Form = ({type} : {type: "signup" | "signin"}) => {
             }
           );
           console.log("Token stored:", jwt);
-          navigate("/blogs");
+          if(response.data.isAdmin){
+            navigate("/admin");
+          }else{
+            navigate("/blogs");
+          }
         } else {
           console.error("Token not found in the response", response.data);
           toast.error(

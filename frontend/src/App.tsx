@@ -1,4 +1,4 @@
-import { BrowserRouter,Routes,Route } from "react-router-dom"
+import { BrowserRouter,Routes,Route, Navigate } from "react-router-dom"
 import Signup from "./pages/Signup"
 import Signin from "./pages/Signin"
 import Blog from "./pages/Blog"
@@ -10,9 +10,12 @@ import Drafts from "./pages/Drafts"
 import MyBlogs from "./pages/MyBlogs"
 import Draft from "./pages/Draft"
 import MyAccount from "./pages/MyAccount"
+import { isAdminStore } from "./store/isAdminStore"
+import AdminDashboard from "./pages/AdminDashboard"
 
 
 const App = () => {
+  const isAdmin = isAdminStore((state) => state.isAdmin)
   return (
    <>
     <BrowserRouter>
@@ -28,6 +31,7 @@ const App = () => {
           <Route path="/draft/:id" element={<Draft />} />
           <Route path="/myblogs" element={<MyBlogs />} />
           <Route path="/myaccount" element={<MyAccount />} />
+          <Route path="/admin" element={isAdmin ? <AdminDashboard /> : <Navigate to="/" />} />
           <Route />
          
       </Routes>

@@ -18,8 +18,11 @@ model User {
   email    String   @unique
   name     String?
   password String
+  isAdmin  Boolean @default(false)
   posts    Blog[]
 }
+
+
 
 model Blog {
   id        String   @id @default(uuid())

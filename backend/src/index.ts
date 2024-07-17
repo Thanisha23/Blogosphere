@@ -2,6 +2,7 @@ import { Hono } from 'hono'
 import { userRouter } from './routes/user'
 import { blogRouter } from './routes/blog'
 import { cors } from 'hono/cors'
+import { adminRouter } from './routes/admin'
 
 const app = new Hono<{
   Bindings:{
@@ -22,7 +23,7 @@ const app = new Hono<{
 
 });
 
-  // Add this to handle OPTIONS requests explicitly
+  
 app.options('*', (c) => {
   return c.text('', 204)
 })
@@ -30,5 +31,6 @@ app.options('*', (c) => {
 
   app.route("/api/v1/user", userRouter)
   app.route("/api/v1/blog",blogRouter)
+  app.route("/api/admin",adminRouter)
 
 export default app

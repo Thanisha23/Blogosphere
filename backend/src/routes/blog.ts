@@ -25,7 +25,7 @@ blogRouter.use("/*",async(c,next) => {
 
     // the above routes can bypass the authentication thus cannot have access to headers i.e token
     /*
-  //so the for ex- c.req.method === 'GET' && !c.req.path.endsWith('/user/me') if re method is 'GET' and doesn't end with /user/me then it will bypass the authorization i.e wont be able to access the token
+  //so the for eg- c.req.method === 'GET' && !c.req.path.endsWith('/user/me') if req method is 'GET' and doesn't end with /user/me then it will bypass the authorization i.e wont be able to access the token
 */
 if (c.req.method === 'GET' && !c.req.path.endsWith('/user/me') && !c.req.path.endsWith("/user/drafts") && !c.req.path.endsWith("/user/myblogs") || c.req.method === 'PUT' || c.req.method === 'DELETE' && !c.req.path.endsWith("/delete")){
         await next();
@@ -55,11 +55,7 @@ if (c.req.method === 'GET' && !c.req.path.endsWith('/user/me') && !c.req.path.en
       }
 
 })
-
-
-
-
-  //We should add pagination here...i.e returning only first 10 blogs and then user can request more 10 later
+  //We should add pagination here...i.e returning only first 3 blogs and then user can request more 3 later
   blogRouter.get('/bulk', async(c) => {
     const prisma = c.get("prisma");
 
