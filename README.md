@@ -1,4 +1,4 @@
-<h1 align="center">Blogosphere</h1>
+<h1 align="center">Blogosphere - A Blogging Platform</h1>
 <p align="center">
 
   ![demo](./frontend/src/assets/blogospheree.gif)
