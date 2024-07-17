@@ -4,15 +4,15 @@
   ![demo](./frontend/src/assets/blogospheree.gif)
 </p>
 
-<div align="center" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
-  <img src="./frontend/src/assets/img-1.jpeg" width="400" />
-  <img src="./frontend/src/assets/img-3.jpeg" width="400" />
-  <img src="./frontend/src/assets/img-4.jpeg" width="400" />
-  <img src="./frontend/src/assets/img-7.jpeg" width="400" />
-  <img src="./frontend/src/assets/img-8.jpeg" width="400" />
-  <img src="./frontend/src/assets/img-2.jpeg" width="400" />
-  <img src="./frontend/src/assets/img-5.jpeg" width="400" />
-  <img src="./frontend/src/assets/img-6.jpeg" width="400" />
+<div align="center" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; margin: 20px 0;">
+  <img src="./frontend/src/assets/img-1.jpeg"  width="350" style="margin-bottom: 20px;" />
+  <img src="./frontend/src/assets/img-3.jpeg"  width="350" style="margin-bottom: 20px;" />
+  <img src="./frontend/src/assets/img-4.jpeg"  width="350" style="margin-bottom: 20px;" />
+  <img src="./frontend/src/assets/img-7.jpeg"  width="350" style="margin-bottom: 20px;" />
+  <img src="./frontend/src/assets/img-8.jpeg"  width="350" style="margin-bottom: 20px;" />
+  <img src="./frontend/src/assets/img-2.jpeg"  width="350" style="margin-bottom: 20px;" />
+  <img src="./frontend/src/assets/img-5.jpeg"  width="350" style="margin-bottom: 20px;" />
+  <img src="./frontend/src/assets/img-6.jpeg"  width="350" style="margin-bottom: 20px;" />
 </div>
 
 <div align="center">
